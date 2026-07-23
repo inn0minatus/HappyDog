@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="skyV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF2C8"/>
+      <stop offset="0.28" stop-color="#BFE6FB"/>
+      <stop offset="1" stop-color="#EAF7FF"/>
+    </linearGradient>
+    <symbol id="cf" overflow="visible">
+      <rect x="-5" y="-7" width="10" height="14" rx="2"/>
+    </symbol>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1280" height="720" fill="url(#skyV)"/>
+
+  <!-- Warm horizon glow -->
+  <rect y="430" width="1280" height="120" fill="#FFE9A8" opacity="0.30"/>
+
+  <!-- Sunburst: glow + rays fanning from the top edge, pale so the title reads -->
+  <g>
+    <circle cx="640" cy="30" r="190" fill="#FFE9A8" opacity="0.18"/>
+    <circle cx="640" cy="30" r="120" fill="#FFE9A8" opacity="0.26"/>
+    <circle cx="640" cy="30" r="66" fill="#FFE9A8" opacity="0.45"/>
+    <g fill="#FFE9A8" opacity="0.20">
+      <polygon points="104,380 136,380 640,30"/>
+      <polygon points="284,360 316,360 640,30"/>
+      <polygon points="455,348 485,348 640,30"/>
+      <polygon points="624,520 656,520 640,30"/>
+      <polygon points="795,348 825,348 640,30"/>
+      <polygon points="964,360 996,360 640,30"/>
+      <polygon points="1144,380 1176,380 640,30"/>
+    </g>
+    <circle cx="640" cy="-12" r="58" fill="#FFE9A8"/>
+  </g>
+
+  <!-- Distant hills -->
+  <path d="M0 472 Q200 422 420 456 T860 452 T1280 462 L1280 520 L0 520 Z" fill="#CDE7BC"/>
+  <path d="M0 502 Q260 458 540 494 T1040 490 T1280 502 L1280 540 L0 540 Z" fill="#A9D88C"/>
+
+  <!-- Background trees on the hill line (off-center) -->
+  <g fill="#8FCB6E">
+    <circle cx="120" cy="468" r="26"/>
+    <circle cx="300" cy="476" r="19"/>
+    <circle cx="982" cy="472" r="23"/>
+    <circle cx="1170" cy="468" r="21"/>
+  </g>
+
+  <!-- Grass field -->
+  <rect y="500" width="1280" height="220" fill="#57A847"/>
+  <path d="M0 614 Q640 586 1280 614 L1280 720 L0 720 Z" fill="#449038"/>
+
+  <!-- Path -->
+  <path d="M596 502 C584 590 540 660 472 720 L808 720 C740 660 696 590 684 502 Z" fill="#ECCB98"/>
+  <path d="M624 506 C618 600 600 650 580 716" fill="none" stroke="#D6B074" stroke-width="6" stroke-linecap="round" opacity="0.55"/>
+
+  <!-- Foreground framing tree, left -->
+  <g>
+    <rect x="141" y="404" width="18" height="108" rx="8" fill="#549C42"/>
+    <g fill="#6FBF5A">
+      <circle cx="150" cy="362" r="92"/>
+      <circle cx="92" cy="386" r="52"/>
+      <circle cx="212" cy="386" r="54"/>
+      <circle cx="150" cy="300" r="58"/>
+    </g>
+    <g fill="#549C42">
+      <circle cx="206" cy="402" r="40"/>
+      <circle cx="150" cy="422" r="34"/>
+    </g>
+  </g>
+
+  <!-- Foreground framing tree, right -->
+  <g>
+    <rect x="1126" y="420" width="18" height="100" rx="8" fill="#549C42"/>
+    <g fill="#6FBF5A">
+      <circle cx="1135" cy="380" r="86"/>
+      <circle cx="1083" cy="402" r="48"/>
+      <circle cx="1191" cy="402" r="50"/>
+      <circle cx="1135" cy="324" r="52"/>
+    </g>
+    <g fill="#549C42">
+      <circle cx="1186" cy="418" r="36"/>
+      <circle cx="1135" cy="436" r="32"/>
+    </g>
+  </g>
+
+  <!-- Confetti bits scattered at the edges/corners only (clear of the centered UI) -->
+  <g>
+    <use href="#cf" transform="translate(70 86) rotate(18)" fill="#FF7A59"/>
+    <use href="#cf" transform="translate(132 142) rotate(-24)" fill="#FFC93C"/>
+    <use href="#cf" transform="translate(188 78) rotate(40)" fill="#2FB4A0"/>
+    <use href="#cf" transform="translate(150 196) rotate(-10)" fill="#FFFFFF"/>
+    <use href="#cf" transform="translate(94 232) rotate(28)" fill="#FFC93C"/>
+    <use href="#cf" transform="translate(226 128) rotate(-32)" fill="#FF7A59"/>
+    <use href="#cf" transform="translate(1210 86) rotate(-18)" fill="#2FB4A0"/>
+    <use href="#cf" transform="translate(1156 144) rotate(24)" fill="#FFC93C"/>
+    <use href="#cf" transform="translate(1098 80) rotate(-40)" fill="#FF7A59"/>
+    <use href="#cf" transform="translate(1132 198) rotate(12)" fill="#FFFFFF"/>
+    <use href="#cf" transform="translate(1188 234) rotate(-26)" fill="#FFC93C"/>
+    <use href="#cf" transform="translate(1054 130) rotate(34)" fill="#2FB4A0"/>
+    <use href="#cf" transform="translate(58 548) rotate(20)" fill="#FFC93C"/>
+    <use href="#cf" transform="translate(120 604) rotate(-18)" fill="#FF7A59"/>
+    <use href="#cf" transform="translate(44 668) rotate(34)" fill="#2FB4A0"/>
+    <use href="#cf" transform="translate(172 560) rotate(-28)" fill="#FFFFFF"/>
+    <use href="#cf" transform="translate(94 700) rotate(14)" fill="#FFC93C"/>
+    <use href="#cf" transform="translate(1224 548) rotate(-20)" fill="#FF7A59"/>
+    <use href="#cf" transform="translate(1162 604) rotate(18)" fill="#FFC93C"/>
+    <use href="#cf" transform="translate(1238 668) rotate(-34)" fill="#2FB4A0"/>
+    <use href="#cf" transform="translate(1108 560) rotate(28)" fill="#FFFFFF"/>
+    <use href="#cf" transform="translate(1188 700) rotate(-14)" fill="#FF7A59"/>
+  </g>
+</svg>

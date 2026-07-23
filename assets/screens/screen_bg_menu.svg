@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="skyM" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8FD3F4"/>
+      <stop offset="0.5" stop-color="#BFE6FB"/>
+      <stop offset="1" stop-color="#E9F7FF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1280" height="720" fill="url(#skyM)"/>
+
+  <!-- Sun + soft glow (top-left, clear of top-right mute toggle) -->
+  <g>
+    <circle cx="150" cy="138" r="150" fill="#FFE9A8" opacity="0.16"/>
+    <circle cx="150" cy="138" r="100" fill="#FFE9A8" opacity="0.22"/>
+    <circle cx="150" cy="138" r="60" fill="#FFE9A8" opacity="0.40"/>
+    <circle cx="150" cy="138" r="40" fill="#FFE9A8"/>
+  </g>
+
+  <!-- Clouds (kept to the sides, clear of the centered logo) -->
+  <g fill="#FFFFFF">
+    <g opacity="0.93">
+      <rect x="86" y="200" width="138" height="30" rx="15"/>
+      <circle cx="120" cy="194" r="28"/>
+      <circle cx="160" cy="188" r="34"/>
+      <circle cx="198" cy="198" r="26"/>
+    </g>
+    <g opacity="0.90">
+      <rect x="1058" y="138" width="146" height="32" rx="16"/>
+      <circle cx="1092" cy="132" r="30"/>
+      <circle cx="1134" cy="124" r="36"/>
+      <circle cx="1174" cy="134" r="28"/>
+    </g>
+  </g>
+
+  <!-- Distant hills -->
+  <path d="M0 472 Q200 422 420 456 T860 452 T1280 462 L1280 520 L0 520 Z" fill="#CDE7BC"/>
+  <path d="M0 502 Q260 458 540 494 T1040 490 T1280 502 L1280 540 L0 540 Z" fill="#A9D88C"/>
+
+  <!-- Background trees on the hill line (off-center) -->
+  <g fill="#8FCB6E">
+    <circle cx="120" cy="468" r="26"/>
+    <circle cx="300" cy="476" r="19"/>
+    <circle cx="982" cy="472" r="23"/>
+    <circle cx="1170" cy="468" r="21"/>
+  </g>
+
+  <!-- Grass field -->
+  <rect y="500" width="1280" height="220" fill="#4E9E3E"/>
+  <path d="M0 614 Q640 586 1280 614 L1280 720 L0 720 Z" fill="#3C8130"/>
+
+  <!-- Winding path (warm, calm — underlies the centered buttons) -->
+  <path d="M596 502 C584 590 540 660 472 720 L808 720 C740 660 696 590 684 502 Z" fill="#E9C892"/>
+  <path d="M624 506 C618 600 600 650 580 716" fill="none" stroke="#D2A863" stroke-width="6" stroke-linecap="round" opacity="0.55"/>
+
+  <!-- Foreground framing tree, left -->
+  <g>
+    <rect x="141" y="404" width="18" height="108" rx="8" fill="#549C42"/>
+    <g fill="#6FBF5A">
+      <circle cx="150" cy="362" r="92"/>
+      <circle cx="92" cy="386" r="52"/>
+      <circle cx="212" cy="386" r="54"/>
+      <circle cx="150" cy="300" r="58"/>
+    </g>
+    <g fill="#549C42">
+      <circle cx="206" cy="402" r="40"/>
+      <circle cx="150" cy="422" r="34"/>
+    </g>
+  </g>
+
+  <!-- Foreground framing tree, right -->
+  <g>
+    <rect x="1126" y="420" width="18" height="100" rx="8" fill="#549C42"/>
+    <g fill="#6FBF5A">
+      <circle cx="1135" cy="380" r="86"/>
+      <circle cx="1083" cy="402" r="48"/>
+      <circle cx="1191" cy="402" r="50"/>
+      <circle cx="1135" cy="324" r="52"/>
+    </g>
+    <g fill="#549C42">
+      <circle cx="1186" cy="418" r="36"/>
+      <circle cx="1135" cy="436" r="32"/>
+    </g>
+  </g>
+
+  <!-- Corner bushes + a few friendly flowers -->
+  <g fill="#6FBF5A">
+    <circle cx="40" cy="676" r="34"/><circle cx="86" cy="668" r="28"/><circle cx="18" cy="692" r="24"/>
+    <circle cx="1240" cy="676" r="34"/><circle cx="1194" cy="668" r="28"/><circle cx="1262" cy="692" r="24"/>
+  </g>
+  <g>
+    <circle cx="250" cy="642" r="6" fill="#FF7A59"/>
+    <circle cx="268" cy="632" r="5" fill="#FFC93C"/>
+    <circle cx="1018" cy="648" r="6" fill="#2FB4A0"/>
+    <circle cx="1036" cy="638" r="5" fill="#FF7A59"/>
+  </g>
+</svg>

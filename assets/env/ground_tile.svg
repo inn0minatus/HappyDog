@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="160" viewBox="0 0 256 160">
+  <defs>
+    <!-- Vertical path gradient; horizontally uniform so the path band is seamless L/R. -->
+    <linearGradient id="pathGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ECD09A"/>
+      <stop offset="0.5" stop-color="#E9C892"/>
+      <stop offset="1" stop-color="#D6B47F"/>
+    </linearGradient>
+    <!-- One grass-blade highlight, authored at origin; placed at lip crests via <use>. -->
+    <g id="blade">
+      <path d="M-3 0 L0 13 L3 0 Z" fill="#6BBF52"/>
+    </g>
+  </defs>
+
+  <!-- PATH base: fills the whole tile; vertical gradient only => seamless horizontally. -->
+  <rect x="0" y="0" width="256" height="160" fill="url(#pathGrad)"/>
+
+  <!-- PEBBLES + dirt specks on a periodic 32px column grid (centres x = 16 + 32k).
+       The motif repeats every 4 columns (k=0..3 == k=4..7) and the column period (32) divides 256,
+       so the whole set is periodic over 256. No pebble crosses x=0 or x=256; the 256-seam falls
+       exactly mid-gap between column x=240 and the wrapped column x=272 (=16+256). => seamless. -->
+  <g>
+    <ellipse cx="16"  cy="86"  rx="7" ry="5" fill="#C08E52"/><ellipse cx="14"  cy="84" rx="2.4" ry="1.5" fill="#D9B084"/>
+    <ellipse cx="48"  cy="110" rx="5" ry="4" fill="#B68A4E"/>
+    <ellipse cx="80"  cy="72"  rx="6" ry="5" fill="#C08E52"/><ellipse cx="78"  cy="70" rx="2.2" ry="1.4" fill="#D9B084"/>
+    <ellipse cx="112" cy="120" rx="4" ry="3" fill="#A97440"/>
+    <ellipse cx="144" cy="86"  rx="7" ry="5" fill="#C08E52"/><ellipse cx="142" cy="84" rx="2.4" ry="1.5" fill="#D9B084"/>
+    <ellipse cx="176" cy="110" rx="5" ry="4" fill="#B68A4E"/>
+    <ellipse cx="208" cy="72"  rx="6" ry="5" fill="#C08E52"/><ellipse cx="206" cy="70" rx="2.2" ry="1.4" fill="#D9B084"/>
+    <ellipse cx="240" cy="120" rx="4" ry="3" fill="#A97440"/>
+    <circle cx="32"  cy="138" r="1.6" fill="#A97440"/>
+    <circle cx="160" cy="138" r="1.6" fill="#A97440"/>
+    <circle cx="64"  cy="98"  r="1.4" fill="#A97440"/>
+    <circle cx="192" cy="98"  r="1.4" fill="#A97440"/>
+  </g>
+
+  <!-- GRASS lip along the top: solid grass with a periodic wavy bottom edge.
+       Troughs at x=0,64,128,192,256 (y=24); crests at x=32,96,160,224 (y=34).
+       x=0 and x=256 are both troughs with horizontal tangents => the curve is C1-continuous across the seam. -->
+  <path fill="#4E9E3E" d="M0,0 H256 V24
+           C242,24 238,34 224,34 C210,34 206,24 192,24
+           C178,24 174,34 160,34 C146,34 142,24 128,24
+           C114,24 110,34 96,34   C82,34 78,24 64,24
+           C50,24 46,34 32,34     C18,34 14,24 0,24 Z"/>
+
+  <!-- Cel-shade shadow tracing the grass/path boundary (same periodic curve, drawn L→R). -->
+  <path fill="none" stroke="#3C8130" stroke-width="2" stroke-linecap="round"
+        d="M0,24 C14,24 18,34 32,34 C46,34 50,24 64,24 C78,24 82,34 96,34 C110,34 114,24 128,24
+           C142,24 146,34 160,34 C174,34 178,24 192,24 C206,24 210,34 224,34 C238,34 242,24 256,24"/>
+
+  <!-- Blade highlights hanging from the lip at each crest (4 of them, period 64 => seamless). -->
+  <use href="#blade" transform="translate(32,33)"/>
+  <use href="#blade" transform="translate(96,33)"/>
+  <use href="#blade" transform="translate(160,33)"/>
+  <use href="#blade" transform="translate(224,33)"/>
+</svg>

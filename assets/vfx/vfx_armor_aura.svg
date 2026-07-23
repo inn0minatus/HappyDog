@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="170" height="170" viewBox="0 0 170 170">
+  <defs>
+    <radialGradient id="aura" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#6FD3C4" stop-opacity="0.26"/>
+      <stop offset="0.55" stop-color="#2FB4A0" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#2FB4A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- soft glow disc -->
+  <circle cx="85" cy="85" r="84" fill="url(#aura)"/>
+  <!-- inner faint disc -->
+  <circle cx="85" cy="85" r="60" fill="#6FD3C4" opacity="0.12"/>
+  <!-- main protective ring -->
+  <circle cx="85" cy="85" r="70" fill="none" stroke="#2FB4A0" stroke-width="5"/>
+  <!-- ring shine -->
+  <circle cx="85" cy="85" r="70" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.6"/>
+  <!-- inner ring -->
+  <circle cx="85" cy="85" r="54" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+  <!-- orbiting sparkles on the ring -->
+  <g fill="#FFFFFF">
+    <circle cx="85" cy="15" r="3"/>
+    <circle cx="155" cy="85" r="3"/>
+    <circle cx="85" cy="155" r="3"/>
+    <circle cx="15" cy="85" r="3"/>
+  </g>
+  <g fill="#FFC93C">
+    <circle cx="134.6" cy="35.4" r="2.4"/>
+    <circle cx="134.6" cy="134.6" r="2.4"/>
+    <circle cx="35.4" cy="134.6" r="2.4"/>
+    <circle cx="35.4" cy="35.4" r="2.4"/>
+  </g>
+</svg>

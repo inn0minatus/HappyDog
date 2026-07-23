@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="170" viewBox="0 0 160 170">
+  <defs>
+    <clipPath id="clip-body-def">
+      <path d="M 28,138 C 24,124 30,114 42,112 C 46,98 60,92 74,96 C 78,84 94,82 104,92 C 118,88 132,98 130,112 C 140,114 144,128 136,138 C 138,148 128,154 116,152 C 100,156 60,156 44,152 C 34,152 26,146 28,138 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- tail (limp, drooped down) -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 130,134 C 142,138 148,148 148,158" stroke="#2E2A28" stroke-width="13"/>
+    <path d="M 130,134 C 142,138 148,148 148,158" stroke="#F4B860" stroke-width="9"/>
+  </g>
+
+  <!-- far front leg (out front, slumped) -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 96,138 C 104,146 110,152 112,158" stroke="#2E2A28" stroke-width="13"/>
+    <path d="M 96,138 C 104,146 110,152 112,158" stroke="#E09B3C" stroke-width="9"/>
+  </g>
+  <ellipse cx="112" cy="160" rx="7" ry="4" fill="#E09B3C" stroke="#2E2A28" stroke-width="2.5"/>
+
+  <!-- body fill (slumped sit, lying low) -->
+  <path d="M 28,138 C 24,124 30,114 42,112 C 46,98 60,92 74,96 C 78,84 94,82 104,92 C 118,88 132,98 130,112 C 140,114 144,128 136,138 C 138,148 128,154 116,152 C 100,156 60,156 44,152 C 34,152 26,146 28,138 Z" fill="#F4B860"/>
+
+  <!-- cream belly (broad, on the ground) -->
+  <path d="M 40,152 C 42,142 54,138 70,140 C 92,142 116,142 132,140 C 136,148 128,154 116,154 C 96,158 56,158 44,154 C 42,153 41,152 40,152 Z" fill="#FBE8C6"/>
+
+  <!-- shadow (cel, clipped) -->
+  <g clip-path="url(#clip-body-def)">
+    <path d="M 24,140 C 22,128 30,122 42,122 C 50,108 64,104 78,108 C 84,96 100,96 110,106 C 122,102 134,110 132,124 C 142,128 144,142 134,150 C 120,156 40,156 30,150 C 26,148 24,144 24,140 Z" fill="#E09B3C"/>
+  </g>
+
+  <!-- body outline -->
+  <path d="M 28,138 C 24,124 30,114 42,112 C 46,98 60,92 74,96 C 78,84 94,82 104,92 C 118,88 132,98 130,112 C 140,114 144,128 136,138 C 138,148 128,154 116,152 C 100,156 60,156 44,152 C 34,152 26,146 28,138 Z" fill="none" stroke="#2E2A28" stroke-width="3.8" stroke-linejoin="round"/>
+
+  <!-- near front leg (out front) -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 84,138 C 90,146 94,152 96,158" stroke="#2E2A28" stroke-width="13"/>
+    <path d="M 84,138 C 90,146 94,152 96,158" stroke="#F4B860" stroke-width="9"/>
+  </g>
+  <ellipse cx="96" cy="160" rx="7" ry="4" fill="#F4B860" stroke="#2E2A28" stroke-width="2.5"/>
+
+  <!-- head (drooped, hanging forward-down, facing right) -->
+  <path d="M 56,112 C 50,112 46,104 50,96 C 44,90 46,78 56,76 C 58,66 72,62 80,70 C 88,62 102,66 104,78 C 114,80 118,92 110,98 C 112,108 104,116 92,114 C 80,118 66,118 56,112 Z" fill="#F4B860"/>
+  <!-- head shadow -->
+  <path d="M 50,96 C 44,90 46,78 56,76 C 58,66 72,62 80,70 C 84,74 86,82 84,90 C 74,92 60,94 50,96 Z" fill="#E09B3C" opacity="0.5"/>
+  <path d="M 56,112 C 50,112 46,104 50,96 C 44,90 46,78 56,76 C 58,66 72,62 80,70 C 88,62 102,66 104,78 C 114,80 118,92 110,98 C 112,108 104,116 92,114 C 80,118 66,118 56,112 Z" fill="none" stroke="#2E2A28" stroke-width="3.8" stroke-linejoin="round"/>
+
+  <!-- snout/muzzle drooping (cream) -->
+  <path d="M 96,96 C 108,96 116,100 116,106 C 116,112 108,114 98,112 C 94,108 93,102 96,96 Z" fill="#FBE8C6" stroke="#2E2A28" stroke-width="3"/>
+
+  <!-- ears (droopy, flopped down) -->
+  <path d="M 58,76 C 50,72 44,78 46,88 C 52,86 58,82 62,78 C 61,77 59,76 58,76 Z" fill="#CC7E32" stroke="#2E2A28" stroke-width="3"/>
+  <path d="M 100,74 C 110,70 118,76 116,86 C 110,84 104,80 100,76 C 100,75 100,74 100,74 Z" fill="#E08A3A" stroke="#2E2A28" stroke-width="3"/>
+
+  <!-- collar + tag -->
+  <path d="M 64,112 C 74,108 86,108 96,112" fill="none" stroke="#2FB4A0" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="96" cy="118" r="5" fill="#FFD24A" stroke="#2E2A28" stroke-width="2.2"/>
+
+  <!-- face: dizzy droopy eyes (swirls), small nose, slack mouth -->
+  <path d="M 108,102 C 112,100 116,102 116,105 C 116,108 112,109 109,107 C 108,106 107,104 108,102 Z" fill="#2E2A28"/>
+  <!-- dizzy spiral eyes (two small swirls) -->
+  <path d="M 70,92 C 66,90 64,94 67,96 C 70,98 73,95 72,92" fill="none" stroke="#2E2A28" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M 92,90 C 88,88 86,92 89,94 C 92,96 95,93 94,90" fill="none" stroke="#2E2A28" stroke-width="2.4" stroke-linecap="round"/>
+  <!-- slack frown mouth -->
+  <path d="M 100,110 C 104,113 109,112 112,109" fill="none" stroke="#2E2A28" stroke-width="2.6" stroke-linecap="round"/>
+
+  <!-- dizzy stars/birdies circling above head -->
+  <g fill="#FFD24A" stroke="#2E2A28" stroke-width="1.4">
+    <path d="M 40,56 l 3,0 l 1.5,-3 l 1.5,3 l 3,0 l -2.5,2 l 1,3 l -3,-1.5 l -3,1.5 l 1,-3 z"/>
+    <path d="M 116,48 l 2.5,0 l 1.2,-2.5 l 1.2,2.5 l 2.5,0 l -2,1.7 l 0.8,2.5 l -2.5,-1.2 l -2.5,1.2 l 0.8,-2.5 z"/>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="84" viewBox="0 0 300 84">
+  <!-- Secondary Play-again button — cream rounded-rect with teal outline, soft offset shadow, top sheen, teal refresh glyph (left). Center left open for the localized label. No baked text. -->
+  <rect x="14" y="12" width="276" height="68" rx="20" fill="rgba(0,0,0,0.15)"/>
+  <rect x="12" y="8" width="276" height="68" rx="20" fill="#FFF6E6" stroke="#2FB4A0" stroke-width="2.5"/>
+  <rect x="26" y="14" width="248" height="9" rx="5" fill="#FFFFFF" opacity="0.6"/>
+  <g transform="translate(26 28) scale(1.16)" fill="#1E8C7C">
+    <path d="M17.65 6.35A7.96 7.96 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+  </g>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="150" viewBox="0 0 140 150">
+  <defs>
+    <clipPath id="clip-body-hit">
+      <path d="M 38,74 C 36,60 50,55 66,57 C 77,58 81,50 88,45 C 95,40 106,41 112,47 C 116,51 120,57 125,63 C 128,66 128,70 124,72 C 119,74 113,75 107,75 C 101,75 99,79 95,82 C 91,86 89,91 86,95 C 84,101 83,107 80,112 C 66,116 49,115 39,110 C 31,105 29,99 29,91 C 29,83 32,77 38,74 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- tail (tucked down) -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 35,76 C 26,86 20,98 20,108" stroke="#2E2A28" stroke-width="12"/>
+    <path d="M 35,76 C 26,86 20,98 20,108" stroke="#F4B860" stroke-width="8"/>
+  </g>
+
+  <!-- far legs (behind): braced back -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 80,100 C 78,118 78,132 78,141" stroke="#2E2A28" stroke-width="12"/>
+    <path d="M 80,100 C 78,118 78,132 78,141" stroke="#E09B3C" stroke-width="8"/>
+    <path d="M 46,102 C 48,118 50,132 52,140" stroke="#2E2A28" stroke-width="12"/>
+    <path d="M 46,102 C 48,118 50,132 52,140" stroke="#E09B3C" stroke-width="8"/>
+  </g>
+  <g>
+    <ellipse cx="78" cy="143" rx="6" ry="4" fill="#E09B3C" stroke="#2E2A28" stroke-width="2.5"/>
+    <ellipse cx="52" cy="142" rx="6" ry="4" fill="#E09B3C" stroke="#2E2A28" stroke-width="2.5"/>
+  </g>
+
+  <!-- body fill -->
+  <path d="M 38,74 C 36,60 50,55 66,57 C 77,58 81,50 88,45 C 95,40 106,41 112,47 C 116,51 120,57 125,63 C 128,66 128,70 124,72 C 119,74 113,75 107,75 C 101,75 99,79 95,82 C 91,86 89,91 86,95 C 84,101 83,107 80,112 C 66,116 49,115 39,110 C 31,105 29,99 29,91 C 29,83 32,77 38,74 Z" fill="#F4B860"/>
+
+  <!-- cream belly -->
+  <path d="M 44,98 C 58,104 74,105 84,104 C 82,112 78,116 70,117 C 56,118 42,114 38,108 C 38,104 40,100 44,98 Z" fill="#FBE8C6"/>
+
+  <!-- shadow (cel, clipped to body) -->
+  <g clip-path="url(#clip-body-hit)">
+    <path d="M 26,96 C 28,86 34,82 42,84 C 58,88 76,90 88,104 C 92,110 88,118 80,116 C 64,120 44,118 34,112 C 28,108 25,102 26,96 Z" fill="#E09B3C"/>
+  </g>
+
+  <!-- body outline -->
+  <path d="M 38,74 C 36,60 50,55 66,57 C 77,58 81,50 88,45 C 95,40 106,41 112,47 C 116,51 120,57 125,63 C 128,66 128,70 124,72 C 119,74 113,75 107,75 C 101,75 99,79 95,82 C 91,86 89,91 86,95 C 84,101 83,107 80,112 C 66,116 49,115 39,110 C 31,105 29,99 29,91 C 29,83 32,77 38,74 Z" fill="none" stroke="#2E2A28" stroke-width="3.5" stroke-linejoin="round"/>
+
+  <!-- near legs (front): braced back, slightly lifted -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 40,100 C 36,116 32,130 30,140" stroke="#2E2A28" stroke-width="12"/>
+    <path d="M 40,100 C 36,116 32,130 30,140" stroke="#F4B860" stroke-width="8"/>
+    <path d="M 86,96 C 84,110 82,122 82,132" stroke="#2E2A28" stroke-width="12"/>
+    <path d="M 86,96 C 84,110 82,122 82,132" stroke="#F4B860" stroke-width="8"/>
+  </g>
+  <g>
+    <ellipse cx="30" cy="143" rx="6" ry="4" fill="#F4B860" stroke="#2E2A28" stroke-width="2.5"/>
+    <ellipse cx="82" cy="134" rx="6" ry="4" fill="#F4B860" stroke="#2E2A28" stroke-width="2.5"/>
+  </g>
+
+  <!-- ears pinned back/down -->
+  <path d="M 113,49 C 106,50 100,51 99,48 C 104,46 112,45 118,47 C 117,48 115,49 113,49 Z" fill="#CC7E32" stroke="#2E2A28" stroke-width="3"/>
+  <path d="M 95,53 C 87,56 80,58 79,54 C 84,51 92,49 99,50 C 98,52 97,53 95,53 Z" fill="#E08A3A" stroke="#2E2A28" stroke-width="3"/>
+
+  <!-- collar + tag -->
+  <path d="M 78,83 C 86,80 94,80 100,83" fill="none" stroke="#2FB4A0" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="100" cy="88" r="4.5" fill="#FFD24A" stroke="#2E2A28" stroke-width="2"/>
+
+  <!-- face: wince — nose up, squeezed eyes, small "ouch" mouth, distress puff -->
+  <circle cx="118" cy="84" r="5" fill="none" stroke="#FBE8C6" stroke-width="2" opacity="0.8"/>
+  <path d="M 124,63 C 127,60 130,61 130,64 C 130,67 127,68 124,67 C 123,66 122,65 124,63 Z" fill="#2E2A28"/>
+  <path d="M 117,69 C 119,72 122,73 124,71" fill="none" stroke="#2E2A28" stroke-width="2.4" stroke-linecap="round"/>
+  <!-- squeezed eyes (^ ^ wince) -->
+  <path d="M 98,58 C 100,55 104,55 106,58" fill="none" stroke="#2E2A28" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M 110,58 C 112,56 115,56 116,58" fill="none" stroke="#2E2A28" stroke-width="2.6" stroke-linecap="round"/>
+</svg>
