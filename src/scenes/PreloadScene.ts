@@ -3,6 +3,7 @@ import { SceneKey } from './keys';
 import { ASSET_MANIFEST } from '../config/assetManifest';
 import { t } from '../i18n/strings';
 import { GAME_WIDTH, GAME_HEIGHT } from '../config/gameConfig';
+import { registerAudio } from '../systems/audio';
 
 /**
  * PreloadScene — loads EVERY asset from the shared manifest (as SVGs at their
@@ -29,6 +30,10 @@ export class PreloadScene extends Phaser.Scene {
     for (const a of ASSET_MANIFEST) {
       this.load.svg(a.key, a.path, { width: a.width, height: a.height });
     }
+
+    // Placeholder SFX/music: synthesized to WAV blobs at runtime and queued onto
+    // this same loader (no external files / network — 100% static-hostable).
+    registerAudio(this);
   }
 
   create(): void {

@@ -28,6 +28,12 @@ const uk = {
   // HUD
   hud_score: 'Рахунок',
 
+  // Pause overlay
+  pause_title: 'Пауза',
+  pause_resume: 'Продовжити',
+  pause_restart: 'Почати заново',
+  pause_menu: 'На головну',
+
   // Game (Phase-1 temporary debug controls)
   game_debug_hint: 'ДЕМО: завершити забіг →',
   game_debug_win: '🏁 Перемога (демо)',
@@ -38,6 +44,7 @@ const uk = {
   results_gameover_title: 'Кліщі тебе наздогнали…',
   results_score: 'Рахунок: {score}',
   results_promo_label: 'Промокод:',
+  results_promo_copied: 'Скопійовано!',
   results_cta: 'Купити на tabletki.ua',
   results_play_again: 'Грати ще раз',
   results_menu: 'На головну',
@@ -60,6 +67,10 @@ const en: Partial<Record<StringKey, string>> = {
   menu_sound_on: 'Sound: on',
   menu_sound_off: 'Sound: off',
   hud_score: 'Score',
+  pause_title: 'Paused',
+  pause_resume: 'Resume',
+  pause_restart: 'Restart',
+  pause_menu: 'Main menu',
   game_debug_hint: 'DEMO: finish run →',
   game_debug_win: '🏁 Victory (demo)',
   game_debug_lose: '☠ Defeat (demo)',
@@ -67,6 +78,7 @@ const en: Partial<Record<StringKey, string>> = {
   results_gameover_title: 'The ticks got you…',
   results_score: 'Score: {score}',
   results_promo_label: 'Promo code:',
+  results_promo_copied: 'Copied!',
   results_cta: 'Buy on tabletki.ua',
   results_play_again: 'Play again',
   results_menu: 'Main menu',

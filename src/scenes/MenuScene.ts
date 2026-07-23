@@ -5,6 +5,9 @@ import { KEYS } from '../config/assetManifest';
 import { t } from '../i18n/strings';
 import { createButton } from '../ui/Button';
 import { AudioManager } from '../systems/AudioManager';
+import { ENV } from '../config/env';
+import { playSfx, playMusic, Sfx, Music } from '../systems/audio';
+import { PROMO_COPY_FADE_MS } from '../config/gameConfig';
 
 /**
  * MenuScene — title, Play (→ Game), and a persisted mute toggle. Fires no
@@ -39,7 +42,10 @@ export class MenuScene extends Phaser.Scene {
       y: 450,
       texture: KEYS.ui_btn_play,
       label: t('menu_play'),
-      onClick: () => this.scene.start(SceneKey.Game),
+      onClick: () => {
+        playSfx(this, Sfx.ui);
+        this.scene.start(SceneKey.Game);
+      },
     });
 
     this.add
@@ -50,7 +56,14 @@ export class MenuScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
+    // Promo teaser chip — the same code the results CTA rewards (spec §6.4) (tap-to-copy).
+    this.buildPromoCopyChip(cx, 648);
+
     this.buildMuteToggle();
+
+    // Menu loop music. Honors the persisted mute (global sound.mute) and the iOS
+    // unlock installed in BootScene; on first load it plays once the user taps.
+    playMusic(this, Music.menu);
   }
 
   private buildMuteToggle(): void {
@@ -70,6 +83,7 @@ export class MenuScene extends Phaser.Scene {
       AudioManager.toggle(this.sound);
       muteBtn.setTexture(this.muteTexture());
       label.setText(this.muteLabel());
+      playSfx(this, Sfx.ui);
     });
   }
 
@@ -79,5 +93,60 @@ export class MenuScene extends Phaser.Scene {
 
   private muteLabel(): string {
     return AudioManager.isMuted() ? t('menu_sound_off') : t('menu_sound_on');
+  }
+
+  private buildPromoCopyChip(x: number, y: number): void {
+    const container = this.add.container(x, y);
+    const chip = this.add.image(0, 0, KEYS.ui_promo_chip).setOrigin(0.5);
+    const text = this.add
+      .text(0, 0, `${t('results_promo_label')} ${ENV.promoCode}`, {
+        fontFamily: 'monospace',
+        fontSize: '24px',
+        fontStyle: 'bold',
+        color: '#20272e',
+      })
+      .setOrigin(0.5);
+    container.add([chip, text]);
+    container.setSize(400, 100);
+    container.setInteractive(
+      new Phaser.Geom.Rectangle(-200, -50, 400, 100),
+      Phaser.Geom.Rectangle.Contains,
+    );
+    if (container.input) container.input.cursor = 'pointer';
+    container.on(Phaser.Input.Events.POINTER_UP, () => this.copyPromoCode());
+  }
+
+  private async copyPromoCode(): Promise<void> {
+    try {
+      if (!navigator.clipboard) {
+        return; // feature unavailable, silent no-op
+      }
+      await navigator.clipboard.writeText(ENV.promoCode);
+      playSfx(this, Sfx.ui);
+      this.showCopyConfirmation();
+    } catch {
+      // copy failed (e.g., no permission), silent no-op
+      return;
+    }
+  }
+
+  private showCopyConfirmation(): void {
+    const cx = GAME_WIDTH / 2;
+    const label = this.add
+      .text(cx, 705, t('results_promo_copied'), {
+        fontFamily: 'system-ui, sans-serif',
+        fontSize: '14px',
+        fontStyle: 'bold',
+        color: '#6cc04a',
+      })
+      .setOrigin(0.5)
+      .setAlpha(1);
+    this.tweens.add({
+      targets: label,
+      alpha: 0,
+      duration: PROMO_COPY_FADE_MS,
+      ease: 'Quad.in',
+      onComplete: () => label.destroy(),
+    });
   }
 }

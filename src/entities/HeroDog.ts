@@ -107,13 +107,18 @@ export class HeroDog extends Phaser.Physics.Arcade.Sprite {
   }
 
   // ── Input ──────────────────────────────────────────────────────────────────
-  /** Edge-triggered jump: fires only when grounded & alive; ignored airborne. */
-  jump(): void {
-    if (!this.isAlive || !this.grounded) return;
+  /**
+   * Edge-triggered jump: fires only when grounded & alive; ignored airborne.
+   * Returns true when a jump actually launched (so the caller can play the SFX
+   * only on a real takeoff, not on ignored mid-air taps).
+   */
+  jump(): boolean {
+    if (!this.isAlive || !this.grounded) return false;
     const body = this.body as Phaser.Physics.Arcade.Body;
     body.setVelocityY(JUMP_VELOCITY_Y);
     this.grounded = false;
     this.enterJump();
+    return true;
   }
 
   // ── Damage / heal / armor ───────────────────────────────────────────────────

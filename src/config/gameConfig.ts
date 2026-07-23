@@ -132,3 +132,92 @@ export const HERO_VICTORY_HOP_VELOCITY = -520; // [SUGGESTED] little victory jum
 
 /** Delay after the win/lose pose before handing off to ResultsScene (lets it read). */
 export const RESULTS_HANDOFF_DELAY_MS = 850; // [SUGGESTED]
+
+// ════════════════════════════════════════════════════════════════════════════
+// Phase 4 — presentation layout & audio config (all [SUGGESTED]).
+// The HUD/pause/audio code carries NO magic numbers; every position, size,
+// colour, depth and volume lives here so layout edits never touch UI logic.
+// ════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Render layering (presentation only) — shared by GameScene, Hud and
+ * PauseOverlay so every layer agrees. Higher = drawn on top. The pause overlay
+ * sits ABOVE the HUD; its backdrop dims everything below it.
+ */
+export const DEPTH = {
+  bgFar: 0,
+  bgNear: 1,
+  ground: 2,
+  grass: 3,
+  entity: 5,
+  hero: 6,
+  aura: 7,
+  hud: 100,
+  pauseBackdrop: 200,
+  pausePanel: 210,
+  pauseContent: 220,
+} as const;
+
+/** HUD layout (top-of-screen, thumb-safe). All px at 1280×720. */
+export const HUD = {
+  // Level-progress bar (frame asset + a dynamic fill drawn through its window).
+  progressBarWidth: 1180, // == ui_progress_bar asset width
+  progressBarY: 22,
+  progressFillInsetX: 5, // fill sits inside the frame border
+  progressFillHeight: 8,
+  progressFillColor: 0x6cc04a, // bright green — reads against the frame
+  // Score row (top-left): icon + number.
+  scoreIconX: 40,
+  scoreRowY: 62,
+  scoreTextX: 66,
+  scoreFontSize: '26px',
+  scoreColor: '#20272e',
+  scoreStrokeColor: '#f4f7fa', // light halo for contrast over any background (a11y)
+  scoreStrokeThickness: 4,
+  // Hearts (below the score row). Distinguished by SHAPE+FILL in the art, not colour.
+  heartStartX: 42,
+  heartY: 106,
+  heartSpacing: 46,
+  // Top-right control cluster: mute then pause.
+  pauseBtnX: 1224,
+  pauseBtnY: 62,
+  muteBtnX: 1148,
+  muteBtnY: 62,
+  frozenBtnAlpha: 0.35, // dim the pause button once the run has ended
+  // Small armor tell (shield icon) shown to the right of the hearts while armored.
+  armorTellX: 214,
+  armorTellY: 106,
+  armorTellScale: 0.62,
+  armorTellPulseScale: 0.78,
+  armorTellPulseMs: 340,
+} as const;
+
+/** Pause overlay layout (centered panel + stacked buttons). */
+export const PAUSE = {
+  backdropColor: 0x0f1418,
+  backdropAlpha: 0.72,
+  fadeInMs: 140,
+  titleOffsetY: -118,
+  titleFontSize: '40px',
+  titleColor: '#20272e',
+  resumeOffsetY: -40,
+  restartOffsetY: 28,
+  menuOffsetY: 96,
+  buttonWidth: 264,
+  buttonHeight: 56,
+  muteOffsetX: 206,
+  muteOffsetY: -128,
+  muteLabelOffsetY: 34,
+  muteLabelFontSize: '13px',
+  muteLabelColor: '#3a444d',
+} as const;
+
+/** Placeholder-audio mix levels (0..1). */
+export const AUDIO = {
+  sfxVolume: 0.5,
+  uiVolume: 0.4,
+  musicVolume: 0.32,
+} as const;
+
+/** Promo code copy confirmation label fade duration. */
+export const PROMO_COPY_FADE_MS = 1200; // [SUGGESTED]

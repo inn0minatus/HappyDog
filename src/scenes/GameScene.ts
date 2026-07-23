@@ -23,41 +23,24 @@ import {
   HIT_SHAKE_INTENSITY,
   HIT_FLASH_MS,
   RESULTS_HANDOFF_DELAY_MS,
+  DEPTH,
 } from '../config/gameConfig';
 import { KEYS } from '../config/assetManifest';
-import { t } from '../i18n/strings';
 import { track, type FinishGameParams } from '../analytics/track';
 import { HeroDog } from '../entities/HeroDog';
 import { FinishLine } from '../entities/FinishLine';
 import { RunnerEntity } from '../entities/RunnerEntity';
 import { DifficultyCurve } from '../systems/DifficultyCurve';
 import { Spawner } from '../systems/Spawner';
+import { Hud } from '../ui/Hud';
+import { PauseOverlay } from '../ui/PauseOverlay';
+import { GameEvents } from './gameEvents';
+import { playSfx, Sfx, playMusic, pauseMusic, resumeMusic, stopMusic, Music } from '../systems/audio';
 
-/**
- * Events emitted on `scene.events` for a future HUD / AudioManager to subscribe to
- * (Phase 4). The in-scene HUD here is a throwaway readout; Phase 4's Hud.ts can
- * listen to these instead of reaching into the scene. Payloads are primitives.
- */
-export const GameEvents = {
-  hp: 'hud:hp', // (hp: number)
-  score: 'hud:score', // (score: number)
-  progress: 'hud:progress', // (progress: number 0..1)
-  armor: 'hud:armor', // ({ active: boolean, remainingMs: number })
-  runStart: 'run:start', // ()
-  runEnd: 'run:end', // (payload: FinishGameParams)
-} as const;
-
-/** Render layering (presentation only). */
-const Depth = {
-  bgFar: 0,
-  bgNear: 1,
-  ground: 2,
-  grass: 3,
-  entity: 5,
-  hero: 6,
-  aura: 7,
-  hud: 100,
-} as const;
+// Re-export the event contract so subscribers can import it "from GameScene"
+// (the canonical name) OR from the standalone module that breaks the Hud↔Scene
+// import cycle. Both point at the same const.
+export { GameEvents } from './gameEvents';
 
 /**
  * GameScene — the real, finite core run loop (spec §3, §5.2, §8.3).
@@ -66,24 +49,25 @@ const Depth = {
  * (parallax tileSprites + object-pooled entities driven by the DifficultyCurve).
  * Fires `start_game` on entry and `finish_game` on Victory (finish line) or Game
  * Over (0 HP), then hands the SAME {result, score, duration_s} payload to
- * ResultsScene — the exact handoff the placeholder used.
+ * ResultsScene.
+ *
+ * The scene is purely the MODEL: it owns run state and EMITS `GameEvents` on
+ * `scene.events`; the Hud/PauseOverlay are the VIEW and only subscribe. Audio is
+ * fired at the same choke points as the events (jump/hit/pickup/armor/win/lose).
  */
 export class GameScene extends Phaser.Scene {
   private hero!: HeroDog;
   private curve!: DifficultyCurve;
   private spawner!: Spawner;
   private finishLine!: FinishLine;
+  private hud!: Hud;
+  private pauseOverlay: PauseOverlay | undefined;
 
   // Parallax layers.
   private bgFar!: Phaser.GameObjects.TileSprite;
   private bgNear!: Phaser.GameObjects.TileSprite;
   private groundTile!: Phaser.GameObjects.TileSprite;
   private fgGrass!: Phaser.GameObjects.TileSprite;
-
-  // HUD readout.
-  private heartImages: Phaser.GameObjects.Image[] = [];
-  private scoreText!: Phaser.GameObjects.Text;
-  private progressFill!: Phaser.GameObjects.Rectangle;
 
   // Run state.
   private distance = 0;
@@ -92,6 +76,7 @@ export class GameScene extends Phaser.Scene {
   private score = 0;
   private finished = false;
   private finishSpawned = false;
+  private paused = false;
 
   // Change-tracking so HUD events only fire on transitions.
   private lastHp = MAX_HP;
@@ -120,11 +105,12 @@ export class GameScene extends Phaser.Scene {
     // A round has begun (spec §5.2).
     track('start_game');
     this.events.emit(GameEvents.runStart);
+    playMusic(this, Music.game);
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, this.cleanup, this);
   }
 
-  // ── Public read hooks (Phase 4 HUD/audio can poll these) ───────────────────
+  // ── Public read hooks (HUD/audio can poll these for initial state) ─────────
   get liveHp(): number {
     return this.hero.hp;
   }
@@ -143,35 +129,35 @@ export class GameScene extends Phaser.Scene {
     this.score = 0;
     this.finished = false;
     this.finishSpawned = false;
+    this.paused = false;
     this.lastHp = MAX_HP;
     this.lastScore = 0;
     this.lastArmorActive = false;
-    this.heartImages = [];
   }
 
   private buildParallax(): void {
     const cx = GAME_WIDTH / 2;
     this.bgFar = this.add
       .tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, KEYS.park_bg_far)
-      .setDepth(Depth.bgFar);
+      .setDepth(DEPTH.bgFar);
     this.bgNear = this.add
       .tileSprite(cx, GROUND_TOP_Y, GAME_WIDTH, 360, KEYS.park_bg_near)
       .setOrigin(0.5, 1)
-      .setDepth(Depth.bgNear);
+      .setDepth(DEPTH.bgNear);
     this.groundTile = this.add
       .tileSprite(cx, GROUND_TOP_Y, GAME_WIDTH, GAME_HEIGHT - GROUND_TOP_Y, KEYS.ground_tile)
       .setOrigin(0.5, 0)
-      .setDepth(Depth.ground);
+      .setDepth(DEPTH.ground);
     this.fgGrass = this.add
       .tileSprite(cx, GAME_HEIGHT, GAME_WIDTH, 140, KEYS.park_fg_grass)
       .setOrigin(0.5, 1)
-      .setDepth(Depth.grass);
+      .setDepth(DEPTH.grass);
   }
 
   private buildGroundAndHero(): void {
     this.hero = new HeroDog(this, HERO_X, GROUND_TOP_Y);
-    this.hero.setDepth(Depth.hero);
-    this.hero.auraSprite.setDepth(Depth.aura);
+    this.hero.setDepth(DEPTH.hero);
+    this.hero.auraSprite.setDepth(DEPTH.aura);
 
     // Invisible static floor so the hero's jump arc lands cleanly.
     const ground = this.add
@@ -188,7 +174,7 @@ export class GameScene extends Phaser.Scene {
 
   private buildFinishLine(): void {
     this.finishLine = new FinishLine(this);
-    this.finishLine.setDepth(Depth.entity);
+    this.finishLine.setDepth(DEPTH.entity);
     this.add.existing(this.finishLine);
     this.physics.add.existing(this.finishLine);
     this.finishLine.recycle(); // hidden until it's queued near LEVEL_LENGTH
@@ -232,47 +218,42 @@ export class GameScene extends Phaser.Scene {
   }
 
   private buildHud(): void {
-    // Level-progress bar (frame asset + a dynamic fill inset within it).
-    const barY = 16;
-    const barW = 1180; // == ui_progress_bar asset width
-    const barLeft = GAME_WIDTH / 2 - barW / 2;
-    this.add.image(GAME_WIDTH / 2, barY, KEYS.ui_progress_bar).setDepth(Depth.hud);
-    this.progressFill = this.add
-      .rectangle(barLeft + 2, barY, barW - 4, 8, 0x6cc04a)
-      .setOrigin(0, 0.5)
-      .setDepth(Depth.hud);
-    this.progressFill.scaleX = 0;
-
-    // Score row (top-left).
-    const rowY = 58;
-    this.add.image(38, rowY, KEYS.ui_score_icon).setDepth(Depth.hud);
-    this.scoreText = this.add
-      .text(68, rowY, `${t('hud_score')}: 0`, {
-        fontFamily: 'system-ui, sans-serif',
-        fontSize: '26px',
-        fontStyle: 'bold',
-        color: '#20272e',
-      })
-      .setOrigin(0, 0.5)
-      .setDepth(Depth.hud);
-
-    // Hearts (below the score row).
-    for (let i = 0; i < MAX_HP; i++) {
-      this.heartImages.push(this.add.image(42 + i * 44, 100, KEYS.ui_heart_full).setDepth(Depth.hud));
-    }
+    this.hud = new Hud(
+      this,
+      { onPause: () => this.pauseGame() },
+      { hp: this.liveHp, score: this.liveScore, progress: this.liveProgress },
+    );
   }
 
   private buildInput(): void {
-    // The WHOLE canvas is the jump zone (spec §3.2 / §10.4). Auto-run is always on.
-    this.input.on(Phaser.Input.Events.POINTER_DOWN, () => this.hero.jump());
-    this.input.keyboard
-      ?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
-      .on('down', () => this.hero.jump());
+    // The WHOLE canvas is the jump zone (spec §3.2 / §10.4), EXCEPT the HUD
+    // controls: a tap that lands on an interactive object (pause/mute) must not
+    // also jump, and no tap jumps while paused or after the run has ended.
+    this.input.on(Phaser.Input.Events.POINTER_DOWN, this.onPointerDown, this);
+    this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).on('down', this.onJumpKey, this);
+  }
+
+  // ── Input handlers ─────────────────────────────────────────────────────────
+  private onPointerDown(pointer: Phaser.Input.Pointer): void {
+    if (this.paused || this.finished) return;
+    // Taps on interactive HUD controls (pause/mute) are handled by those objects;
+    // they must NOT also trigger a jump.
+    if (this.input.hitTestPointer(pointer).length > 0) return;
+    this.tryJump();
+  }
+
+  private onJumpKey(): void {
+    if (this.paused || this.finished) return;
+    this.tryJump();
+  }
+
+  private tryJump(): void {
+    if (this.hero.jump()) playSfx(this, Sfx.jump);
   }
 
   // ── Per-frame loop ────────────────────────────────────────────────────────────
-  override update(time: number, delta: number): void {
-    if (this.finished) return;
+  override update(_time: number, delta: number): void {
+    if (this.finished || this.paused) return;
 
     const dt = delta / 1000;
     this.elapsedMs += delta;
@@ -285,10 +266,14 @@ export class GameScene extends Phaser.Scene {
     this.spawner.update(this.distance, worldSpeed, progress);
     this.updateFinishLine(worldSpeed);
 
-    this.hero.tick(time);
+    // Drive hero animation/armor timing off the SCENE clock so it freezes exactly
+    // with the pause overlay (this.time.paused) and resumes bit-for-bit.
+    const now = this.time.now;
+    this.hero.tick(now);
     this.updateScore();
-    this.updateHud(progress);
-    this.emitArmor(time);
+    this.syncHp();
+    this.events.emit(GameEvents.progress, progress);
+    this.emitArmor(now);
 
     // Deterministic Victory: the finish line has reached the hero.
     if (this.finishSpawned && this.finishLine.active && this.finishLine.x <= HERO_X) {
@@ -315,36 +300,28 @@ export class GameScene extends Phaser.Scene {
     if (this.finishLine.active) this.finishLine.setVelocityX(-worldSpeed);
   }
 
+  // ── HUD event emitters (view-agnostic; the Hud subscribes) ─────────────────
   private updateScore(): void {
     const survival = Math.floor((this.elapsedMs / 1000) * SCORE_SURVIVAL_PER_S);
     this.score = this.tabletScore + survival;
     if (this.score !== this.lastScore) {
-      this.scoreText.setText(`${t('hud_score')}: ${this.score}`);
       this.events.emit(GameEvents.score, this.score);
       this.lastScore = this.score;
     }
   }
 
-  private updateHud(progress: number): void {
-    this.progressFill.scaleX = progress;
-    this.events.emit(GameEvents.progress, progress);
-    if (this.hero.hp !== this.lastHp) this.refreshHearts();
-  }
-
-  private refreshHearts(): void {
+  private syncHp(): void {
     const hp = this.hero.hp;
-    this.heartImages.forEach((img, i) => {
-      img.setTexture(i < hp ? KEYS.ui_heart_full : KEYS.ui_heart_empty);
-    });
-    this.events.emit(GameEvents.hp, hp);
-    this.lastHp = hp;
+    if (hp !== this.lastHp) {
+      this.events.emit(GameEvents.hp, hp);
+      this.lastHp = hp;
+    }
   }
 
   private emitArmor(time: number): void {
     const active = this.hero.isArmored(time);
-    const remainingMs = this.hero.armorRemaining(time);
     if (active !== this.lastArmorActive) {
-      this.events.emit(GameEvents.armor, { active, remainingMs });
+      this.events.emit(GameEvents.armor, { active, remainingMs: this.hero.armorRemaining(time) });
       this.lastArmorActive = active;
     }
   }
@@ -378,7 +355,8 @@ export class GameScene extends Phaser.Scene {
     tablet.recycle();
     this.tabletScore += TABLET_SCORE;
     this.hero.heal(TABLET_HEAL);
-    this.refreshHearts();
+    this.syncHp();
+    playSfx(this, Sfx.tablet);
   }
 
   private onArmor(armor: RunnerEntity): void {
@@ -386,12 +364,14 @@ export class GameScene extends Phaser.Scene {
     armor.recycle();
     this.hero.activateArmor(this.time.now);
     this.spawnArmorBurst();
+    playSfx(this, Sfx.armor);
   }
 
   private onHeroDamaged(): void {
     this.cameras.main.shake(HIT_SHAKE_MS, HIT_SHAKE_INTENSITY);
     this.cameras.main.flash(HIT_FLASH_MS, 200, 60, 60);
-    this.refreshHearts();
+    this.syncHp();
+    playSfx(this, Sfx.hit);
     if (this.hero.hp <= 0) this.endRun('lose');
   }
 
@@ -399,7 +379,7 @@ export class GameScene extends Phaser.Scene {
   private spawnArmorBurst(): void {
     const burst = this.add
       .image(this.hero.x, this.hero.y - HERO_BODY_HEIGHT * 0.55, KEYS.vfx_armor_burst)
-      .setDepth(Depth.aura);
+      .setDepth(DEPTH.aura);
     this.tweens.add({
       targets: burst,
       scale: { from: 0.5, to: 1.4 },
@@ -410,13 +390,68 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
+  // ── Pause loop ───────────────────────────────────────────────────────────────
+  private pauseGame(): void {
+    if (this.paused || this.finished) return;
+    this.paused = true;
+    // Freeze EVERYTHING: physics bodies, all tweens, the scene clock (which also
+    // owns the spawner cadence + the hero's armor/i-frame timing), and music.
+    this.physics.world.pause();
+    this.tweens.pauseAll();
+    this.time.paused = true;
+    pauseMusic();
+
+    this.pauseOverlay = new PauseOverlay(this, {
+      onResume: () => this.resumeGame(),
+      onRestart: () => this.restartRun(),
+      onMenu: () => this.quitToMenu(),
+      onMuteChanged: () => this.hud.syncMute(),
+    });
+  }
+
+  private resumeGame(): void {
+    if (!this.paused) return;
+    this.exitPauseState();
+    resumeMusic();
+  }
+
+  private restartRun(): void {
+    // Leave no frozen physics/clock behind, drop the music so create() starts it
+    // fresh, then rebuild the whole scene.
+    this.exitPauseState();
+    stopMusic();
+    this.scene.restart();
+  }
+
+  private quitToMenu(): void {
+    this.exitPauseState();
+    stopMusic();
+    this.scene.start(SceneKey.Menu);
+  }
+
+  /** Tear down the overlay and unfreeze the world (shared by every pause exit). */
+  private exitPauseState(): void {
+    this.pauseOverlay?.destroy();
+    this.pauseOverlay = undefined;
+    this.tweens.resumeAll();
+    this.physics.world.resume();
+    this.time.paused = false;
+    this.paused = false;
+  }
+
   // ── Termination ────────────────────────────────────────────────────────────────
   private endRun(result: 'win' | 'lose'): void {
     if (this.finished) return;
     this.finished = true;
 
-    if (result === 'win') this.hero.victory();
-    else this.hero.defeat();
+    if (result === 'win') {
+      this.hero.victory();
+      playSfx(this, Sfx.victory);
+    } else {
+      this.hero.defeat();
+      playSfx(this, Sfx.defeat);
+    }
+    stopMusic(); // the run is over — let the sting land over silence
 
     this.spawner.freeze();
     if (this.finishLine.active) this.finishLine.setVelocityX(0);
@@ -429,7 +464,7 @@ export class GameScene extends Phaser.Scene {
     track('finish_game', payload);
     this.events.emit(GameEvents.runEnd, payload);
 
-    // Let the win/lose pose read, then hand off with the EXACT placeholder payload.
+    // Let the win/lose pose read, then hand off with the EXACT payload.
     this.time.delayedCall(RESULTS_HANDOFF_DELAY_MS, () => {
       this.scene.start(SceneKey.Results, payload);
     });
@@ -437,8 +472,10 @@ export class GameScene extends Phaser.Scene {
 
   private cleanup(): void {
     // Tweens/timers/display objects are scene-scoped and auto-destroyed; destroy the
-    // pools explicitly so re-entering Game (play again) never leaks or double-fires.
+    // pools + overlay explicitly so re-entering Game (play again) never leaks or
+    // double-fires. (The Hud self-destructs on the same SHUTDOWN event.)
+    this.pauseOverlay?.destroy();
+    this.pauseOverlay = undefined;
     this.spawner.destroy();
-    this.heartImages = [];
   }
 }
