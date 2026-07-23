@@ -64,3 +64,71 @@ export const SCORE_SURVIVAL_PER_S = 10; // [SUGGESTED] survival trickle per seco
 
 /** Persistence key for the mute preference (spec §6.3). */
 export const MUTE_STORAGE_KEY = 'hdr:muted'; // [SUGGESTED]
+
+// ════════════════════════════════════════════════════════════════════════════
+// Phase 3 — core run-loop tuning (all [SUGGESTED]; playtest-tunable).
+// These sit here (not in scene/entity code) so difficulty edits never touch logic.
+// ════════════════════════════════════════════════════════════════════════════
+
+// ── Spawn geometry ──────────────────────────────────────────────────────────
+/** Entities appear this far PAST the right edge (off-screen) before scrolling in. */
+export const SPAWN_MARGIN_PX = 140; // [SUGGESTED]
+/** Entities are recycled to the pool once this far PAST the left edge. */
+export const RECYCLE_MARGIN_PX = 260; // [SUGGESTED]
+
+// ── Parallax scroll factors, relative to world speed (ground/path = 1.0) ──────
+// Closer layers scroll faster → depth. far < near < ground < foreground grass.
+export const PARALLAX_FACTOR_FAR = 0.16; // [SUGGESTED] far skyline — slowest
+export const PARALLAX_FACTOR_NEAR = 0.42; // [SUGGESTED] near foliage — medium
+export const PARALLAX_FACTOR_GROUND = 1.0; // [SUGGESTED] ground/path — world speed
+export const PARALLAX_FACTOR_GRASS = 1.12; // [SUGGESTED] foreground grass — fastest
+
+// ── Hero physics body — a FORGIVING hitbox smaller than the art frame ─────────
+export const HERO_BODY_WIDTH = 74; // [SUGGESTED] px, centered on the frame width
+export const HERO_BODY_HEIGHT = 116; // [SUGGESTED] px, anchored to the dog's feet
+
+// ── Pooled-entity hitboxes (fraction of the art frame; forgiving to the player) ─
+export const HAZARD_HITBOX_SCALE = 0.62; // [SUGGESTED] ticks/bush/puddle
+export const PICKUP_HITBOX_SCALE = 0.9; // [SUGGESTED] tablets/armor — easy to grab
+export const FINISH_HITBOX_WIDTH = 34; // [SUGGESTED] thin, full-height trigger band
+
+// ── Object-pool sizes (max concurrent per type; sized > worst-case on-screen) ──
+export const POOL_SIZE_HAZARD = 12; // [SUGGESTED] per hazard type
+export const POOL_SIZE_TABLET = 16; // [SUGGESTED]
+export const POOL_SIZE_ARMOR = 4; // [SUGGESTED]
+
+// ── Collectible placement ─────────────────────────────────────────────────────
+// Tablets/armor HOVER above the ground so the player must JUMP to collect — the
+// same jump that clears ground hazards (reinforces the one-verb core loop, §3.1).
+export const COLLECTIBLE_HOVER_PX = 150; // [SUGGESTED] above GROUND_TOP_Y (must-jump)
+export const COLLECTIBLE_HOVER_JITTER_PX = 46; // [SUGGESTED] extra height, 0..N upward
+/** Base world spacing between tablets (widened late-game by the generosity taper). */
+export const TABLET_SPACING_START = 560; // [SUGGESTED] world units
+
+// ── Hazard mix (spawn weights; higher = more frequent). Tick is the signature threat.
+export const HAZARD_WEIGHT_TICK = 3; // [SUGGESTED]
+export const HAZARD_WEIGHT_BUSH = 2; // [SUGGESTED]
+export const HAZARD_WEIGHT_PUDDLE = 2; // [SUGGESTED]
+
+// ── i-frame + armor visual tells ──────────────────────────────────────────────
+export const INVULN_BLINK_MS = 110; // [SUGGESTED] alpha-blink cadence during i-frames
+export const ARMOR_EXPIRY_TELL_MS = 1000; // [SPEC] aura flashes in the final ~1 s (§4.4)
+export const ARMOR_AURA_BLINK_MS = 120; // [SUGGESTED] aura blink cadence in the tell
+
+// ── Hit feedback ──────────────────────────────────────────────────────────────
+export const HIT_SHAKE_MS = 180; // [SUGGESTED] camera shake duration on damage
+export const HIT_SHAKE_INTENSITY = 0.01; // [SUGGESTED] camera shake magnitude (fraction)
+export const HIT_FLASH_MS = 120; // [SUGGESTED] red flash on the dog
+export const HERO_HIT_POSE_MS = 220; // [SUGGESTED] how long the dog_hit pose shows
+
+// ── Hero animation feel (presentation tunables) ───────────────────────────────
+export const HERO_RUN_TILT_DEG = 3; // [SUGGESTED] jaunty body tilt while running
+export const HERO_RUN_TILT_MS = 260; // [SUGGESTED] half-cycle of the run tilt
+export const HERO_JUMP_STRETCH = 0.14; // [SUGGESTED] takeoff stretch (scaleY↑/scaleX↓)
+export const HERO_JUMP_STRETCH_MS = 130; // [SUGGESTED]
+export const HERO_LAND_SQUASH = 0.16; // [SUGGESTED] landing squash (scaleY↓/scaleX↑)
+export const HERO_LAND_SQUASH_MS = 120; // [SUGGESTED]
+export const HERO_VICTORY_HOP_VELOCITY = -520; // [SUGGESTED] little victory jump (px/s)
+
+/** Delay after the win/lose pose before handing off to ResultsScene (lets it read). */
+export const RESULTS_HANDOFF_DELAY_MS = 850; // [SUGGESTED]
