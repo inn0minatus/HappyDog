@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="380" height="100" viewBox="0 0 380 100">
+  <rect x="1" y="1" width="378" height="98" rx="6" fill="#dfe3e8" stroke="#5b6670" stroke-width="2"/>
+  <text x="190" y="47" font-family="monospace" font-size="20" fill="#20272e" text-anchor="middle" dominant-baseline="middle">ui_btn_cta</text>
+  <text x="190" y="70" font-family="monospace" font-size="14" fill="#48525c" text-anchor="middle" dominant-baseline="middle">380x100</text>
+</svg>

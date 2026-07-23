@@ -1,0 +1,22 @@
+{
+  "name": "happy-dog-runner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Happy Dog Runner — a branded, mobile-first 2D browser runner (Phaser 3 + TypeScript + Vite). Phase 1: foundation & scaffold.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "gen:placeholders": "tsx scripts/gen-placeholders.mts"
+  },
+  "dependencies": {
+    "phaser": "^3.87.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="160" viewBox="0 0 256 160">
+  <rect x="1" y="1" width="254" height="158" rx="6" fill="#d6e8cf" stroke="#5b6670" stroke-width="2"/>
+  <text x="128" y="76.1" font-family="monospace" font-size="26" fill="#20272e" text-anchor="middle" dominant-baseline="middle">ground_tile</text>
+  <text x="128" y="106" font-family="monospace" font-size="19" fill="#48525c" text-anchor="middle" dominant-baseline="middle">256x160</text>
+</svg>

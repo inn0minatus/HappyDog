@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+  <rect x="1" y="1" width="50" height="50" rx="6" fill="#dfe3e8" stroke="#5b6670" stroke-width="2"/>
+  <text x="26" y="24.8" font-family="monospace" font-size="8" fill="#20272e" text-anchor="middle" dominant-baseline="middle">ui_heart_empty</text>
+  <text x="26" y="34" font-family="monospace" font-size="8" fill="#48525c" text-anchor="middle" dominant-baseline="middle">52x52</text>
+</svg>

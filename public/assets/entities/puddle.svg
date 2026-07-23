@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="50" viewBox="0 0 180 50">
+  <rect x="1" y="1" width="178" height="48" rx="6" fill="#f2d7a8" stroke="#5b6670" stroke-width="2"/>
+  <text x="90" y="23.5" font-family="monospace" font-size="10" fill="#20272e" text-anchor="middle" dominant-baseline="middle">puddle</text>
+  <text x="90" y="35" font-family="monospace" font-size="8" fill="#48525c" text-anchor="middle" dominant-baseline="middle">180x50</text>
+</svg>
