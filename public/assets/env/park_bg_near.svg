@@ -1,5 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360">
-  <rect x="1" y="1" width="1278" height="358" rx="6" fill="#d6e8cf" stroke="#5b6670" stroke-width="2"/>
-  <text x="640" y="176.1" font-family="monospace" font-size="26" fill="#20272e" text-anchor="middle" dominant-baseline="middle">park_bg_near</text>
-  <text x="640" y="206" font-family="monospace" font-size="19" fill="#48525c" text-anchor="middle" dominant-baseline="middle">1280x360</text>
+  <defs>
+    <!-- Rounded bush, taller variant. Authored centred at x=0 (canopy extent ±56, shadow ±60). -->
+    <g id="bushA">
+      <ellipse cx="0"   cy="312" rx="60" ry="13" fill="#3C8130" opacity="0.22"/>
+      <ellipse cx="-26" cy="262" rx="34" ry="32" fill="#549C42"/>
+      <ellipse cx="26"  cy="264" rx="34" ry="32" fill="#549C42"/>
+      <ellipse cx="0"   cy="230" rx="38" ry="33" fill="#549C42"/>
+      <ellipse cx="-24" cy="256" rx="31" ry="29" fill="#6FBF5A"/>
+      <ellipse cx="25"  cy="258" rx="31" ry="29" fill="#6FBF5A"/>
+      <ellipse cx="0"   cy="222" rx="35" ry="30" fill="#6FBF5A"/>
+      <ellipse cx="-12" cy="208" rx="15" ry="12" fill="#8FD86F"/>
+    </g>
+    <!-- Rounded bush, shorter variant. Canopy extent ±55, shadow ±56. -->
+    <g id="bushB">
+      <ellipse cx="0"   cy="306" rx="56" ry="12" fill="#3C8130" opacity="0.22"/>
+      <ellipse cx="-22" cy="272" rx="32" ry="30" fill="#549C42"/>
+      <ellipse cx="23"  cy="274" rx="32" ry="30" fill="#549C42"/>
+      <ellipse cx="-20" cy="266" rx="29" ry="27" fill="#6FBF5A"/>
+      <ellipse cx="21"  cy="268" rx="29" ry="27" fill="#6FBF5A"/>
+      <ellipse cx="0"   cy="250" rx="32" ry="28" fill="#6FBF5A"/>
+      <ellipse cx="-9"  cy="240" rx="13" ry="10" fill="#8FD86F"/>
+    </g>
+  </defs>
+
+  <!-- Row of rounded bushes on a 160px grid (centres 80 + 160k), alternating bushA / bushB.
+       Pattern period = 2 bushes; 8 bushes = 4 full periods across 1280. Widths are equal per side
+       (A right +56 / B left -55), so every horizontal gap = 160 - 56 - 55 = 49, including the 1280-seam
+       (right half-gap 25 at x=1280 + left half-gap 24 at x=0 ... composed gap = 49). => seamless L/R.
+       No background rect: the region above the canopy tops (~y196) is fully transparent. -->
+  <use href="#bushA" transform="translate(80,0)"/>
+  <use href="#bushB" transform="translate(240,0)"/>
+  <use href="#bushA" transform="translate(400,0)"/>
+  <use href="#bushB" transform="translate(560,0)"/>
+  <use href="#bushA" transform="translate(720,0)"/>
+  <use href="#bushB" transform="translate(880,0)"/>
+  <use href="#bushA" transform="translate(1040,0)"/>
+  <use href="#bushB" transform="translate(1200,0)"/>
 </svg>

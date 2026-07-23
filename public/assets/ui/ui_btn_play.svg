@@ -1,5 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="104" viewBox="0 0 360 104">
-  <rect x="1" y="1" width="358" height="102" rx="6" fill="#dfe3e8" stroke="#5b6670" stroke-width="2"/>
-  <text x="180" y="49" font-family="monospace" font-size="20" fill="#20272e" text-anchor="middle" dominant-baseline="middle">ui_btn_play</text>
-  <text x="180" y="72" font-family="monospace" font-size="14" fill="#48525c" text-anchor="middle" dominant-baseline="middle">360x104</text>
+  <!-- Primary Play button — teal rounded-rect, soft offset shadow, top sheen, white play glyph (left). Center left open for the localized label. No baked text. -->
+  <rect x="16" y="15" width="332" height="84" rx="22" fill="rgba(0,0,0,0.15)"/>
+  <rect x="14" y="10" width="332" height="84" rx="22" fill="#2FB4A0" stroke="#2E2A28" stroke-width="2"/>
+  <rect x="30" y="18" width="300" height="12" rx="6" fill="#FFFFFF" opacity="0.30"/>
+  <path d="M46 34 L46 70 L80 52 Z" fill="#FFFFFF"/>
 </svg>

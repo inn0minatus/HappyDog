@@ -1,5 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="380" height="100" viewBox="0 0 380 100">
-  <rect x="1" y="1" width="378" height="98" rx="6" fill="#dfe3e8" stroke="#5b6670" stroke-width="2"/>
-  <text x="190" y="47" font-family="monospace" font-size="20" fill="#20272e" text-anchor="middle" dominant-baseline="middle">ui_btn_cta</text>
-  <text x="190" y="70" font-family="monospace" font-size="14" fill="#48525c" text-anchor="middle" dominant-baseline="middle">380x100</text>
+  <!-- Buy CTA button — coral rounded-rect, soft offset shadow, top sheen, small white shopping-bag glyph (far-left). Center left open for the localized label. No baked text. -->
+  <rect x="16" y="14" width="352" height="82" rx="22" fill="rgba(0,0,0,0.15)"/>
+  <rect x="14" y="9" width="352" height="82" rx="22" fill="#FF7A59" stroke="#2E2A28" stroke-width="2"/>
+  <rect x="30" y="16" width="324" height="11" rx="6" fill="#FFFFFF" opacity="0.32"/>
+  <rect x="20" y="40" width="18" height="20" rx="3.5" fill="#FFFFFF"/>
+  <path d="M24 41 A5 5 0 0 1 34 41" fill="none" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round"/>
 </svg>

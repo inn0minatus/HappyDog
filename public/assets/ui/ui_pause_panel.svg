@@ -1,5 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="520" height="360" viewBox="0 0 520 360">
-  <rect x="1" y="1" width="518" height="358" rx="6" fill="#dfe3e8" stroke="#5b6670" stroke-width="2"/>
-  <text x="260" y="176.1" font-family="monospace" font-size="26" fill="#20272e" text-anchor="middle" dominant-baseline="middle">ui_pause_panel</text>
-  <text x="260" y="206" font-family="monospace" font-size="19" fill="#48525c" text-anchor="middle" dominant-baseline="middle">520x360</text>
+  <!-- Centered pause overlay panel — cream rounded-rect, soft offset shadow, teal header band (top corners rounded to match), subtle sheen. Interior below the header is left OPEN for buttons/text. No baked text. -->
+  <rect x="18" y="20" width="492" height="336" rx="24" fill="rgba(0,0,0,0.15)"/>
+  <rect x="14" y="12" width="492" height="336" rx="24" fill="#FFF6E6" stroke="#2E2A28" stroke-width="2"/>
+  <path d="M38 12 H482 A24 24 0 0 1 506 36 V78 H14 V36 A24 24 0 0 1 38 12 Z" fill="#2FB4A0"/>
+  <rect x="40" y="18" width="440" height="4" rx="2" fill="#6FD3C4" opacity="0.8"/>
 </svg>

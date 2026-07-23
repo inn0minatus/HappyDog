@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
-  <rect x="1" y="1" width="42" height="42" rx="6" fill="#dfe3e8" stroke="#5b6670" stroke-width="2"/>
-  <text x="22" y="20.8" font-family="monospace" font-size="8" fill="#20272e" text-anchor="middle" dominant-baseline="middle">ui_score_icon</text>
-  <text x="22" y="30" font-family="monospace" font-size="8" fill="#48525c" text-anchor="middle" dominant-baseline="middle">44x44</text>
+  <g fill="#FFC93C" stroke="#2E2A28" stroke-width="2" stroke-linejoin="round">
+    <ellipse cx="9" cy="16" rx="3.4" ry="4.4"/>
+    <ellipse cx="16" cy="10" rx="3.2" ry="4.3"/>
+    <ellipse cx="28" cy="10" rx="3.2" ry="4.3"/>
+    <ellipse cx="35" cy="16" rx="3.4" ry="4.4"/>
+    <path d="M22 38 C11 38 8 31 9 25 C10 20 15 18 22 18 C29 18 34 20 35 25 C36 31 33 38 22 38 Z"/>
+  </g>
+  <ellipse cx="18" cy="24" rx="3" ry="2" fill="#FFE08A" opacity="0.8"/>
 </svg>

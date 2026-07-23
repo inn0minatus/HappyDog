@@ -1,5 +1,65 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect x="1" y="1" width="1278" height="718" rx="6" fill="#d6e8cf" stroke="#5b6670" stroke-width="2"/>
-  <text x="640" y="356.1" font-family="monospace" font-size="26" fill="#20272e" text-anchor="middle" dominant-baseline="middle">park_bg_far</text>
-  <text x="640" y="386" font-family="monospace" font-size="19" fill="#48525c" text-anchor="middle" dominant-baseline="middle">1280x720</text>
+  <defs>
+    <!-- Sky: vertical gradient only => horizontally uniform => seamless L/R. -->
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8FD3F4"/>
+      <stop offset="0.55" stop-color="#B7E3F7"/>
+      <stop offset="1" stop-color="#DFF3FF"/>
+    </linearGradient>
+    <!-- Warm horizon haze: vertical gradient => horizontally uniform => seamless. -->
+    <linearGradient id="haze" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE9A8" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#FFE9A8" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Soft sun glow (radial, fades fully to 0 inside the canvas). -->
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFE9A8" stop-opacity="0.55"/>
+      <stop offset="0.4" stop-color="#FFE9A8" stop-opacity="0.22"/>
+      <stop offset="0.75" stop-color="#FFE9A8" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/>
+    </radialGradient>
+    <g id="cloud" fill="#FFFFFF">
+      <ellipse cx="-42" cy="6"  rx="34" ry="17"/>
+      <ellipse cx="-8"  cy="-9" rx="42" ry="24"/>
+      <ellipse cx="30"  cy="-2" rx="36" ry="21"/>
+      <ellipse cx="52"  cy="11" rx="26" ry="14"/>
+    </g>
+  </defs>
+
+  <!-- SKY full-bleed -->
+  <rect x="0" y="0" width="1280" height="720" fill="url(#sky)"/>
+  <!-- Warm horizon haze band (seamless). -->
+  <rect x="0" y="360" width="1280" height="200" fill="url(#haze)"/>
+  <!-- Soft sun glow. Centred at (980,150), r=190 => warm only within x≈790..1170; opacity→0 there, so
+       both L/R edges (x=0, x=1280) stay pure sky => seam invisible. (As one motif in a tiling far layer it
+       repeats every 1280px at the slowest parallax; kept broad & low-opacity so it reads as ambient warmth.) -->
+  <circle cx="980" cy="150" r="190" fill="url(#sun)"/>
+  <!-- Two faint clouds, fully interior (clear of x=0 and x=1280) => seamless. -->
+  <use href="#cloud" transform="translate(250,128)" opacity="0.85"/>
+  <use href="#cloud" transform="translate(770,96)" opacity="0.8"/>
+
+  <!-- FAR rolling hills (#A9D88C). Periodic crest/trough curve:
+       crests x=0,320,640,960,1280 @y486; troughs x=160,480,800,1120 @y588; horizontal tangents throughout.
+       Endpoints x=0 and x=1280 match (crest, horizontal) => C1-continuous across the seam => seamless. -->
+  <path fill="#A9D88C" d="M0,720 L0,486
+    C70,486 90,588 160,588 C230,588 250,486 320,486
+    C390,486 410,588 480,588 C550,588 570,486 640,486
+    C710,486 730,588 800,588 C870,588 890,486 960,486
+    C1030,486 1050,588 1120,588 C1190,588 1210,486 1280,486 L1280,720 Z"/>
+
+  <!-- FAR treeline silhouette (#8FC96F). Periodic, period 128 (10 lobes across 1280):
+       troughs x=0,128,...,1280 @y584; crests x=64,192,...,1216 @y530; horizontal tangents throughout.
+       Endpoints match => seamless. -->
+  <path fill="#8FC96F" d="M0,720 L0,584
+    C28,584 36,530 64,530 C92,530 100,584 128,584
+    C156,584 164,530 192,530 C220,530 228,584 256,584
+    C284,584 292,530 320,530 C348,530 356,584 384,584
+    C412,584 420,530 448,530 C476,530 484,584 512,584
+    C540,584 548,530 576,530 C604,530 612,584 640,584
+    C668,584 676,530 704,530 C732,530 740,584 768,584
+    C796,584 804,530 832,530 C860,530 868,584 896,584
+    C924,584 932,530 960,530 C988,530 996,584 1024,584
+    C1052,584 1060,530 1088,530 C1116,530 1124,584 1152,584
+    C1180,584 1188,530 1216,530 C1244,530 1252,584 1280,584 L1280,720 Z"/>
 </svg>

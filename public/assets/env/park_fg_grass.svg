@@ -1,5 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="140" viewBox="0 0 1280 140">
-  <rect x="1" y="1" width="1278" height="138" rx="6" fill="#d6e8cf" stroke="#5b6670" stroke-width="2"/>
-  <text x="640" y="66.1" font-family="monospace" font-size="26" fill="#20272e" text-anchor="middle" dominant-baseline="middle">park_fg_grass</text>
-  <text x="640" y="96" font-family="monospace" font-size="19" fill="#48525c" text-anchor="middle" dominant-baseline="middle">1280x140</text>
+  <defs>
+    <!-- Foreground grass tuft, taller variant. Authored centred at x=0, base at y=140. Width ±22. -->
+    <g id="tuftA">
+      <path d="M-21 140 Q-19 100 -16 62 L-13 140 Z" fill="#4E9E3E"/>
+      <path d="M-9 140 Q-7 95 -4 50 L-1 140 Z" fill="#3C8130"/>
+      <path d="M2 140 Q4 92 7 48 L10 140 Z" fill="#4E9E3E"/>
+      <path d="M14 140 Q16 98 19 64 L22 140 Z" fill="#3C8130"/>
+      <path d="M-17 62 L-15 74 L-13 62 Z" fill="#6BBF52"/>
+      <path d="M-5 50 L-3 62 L-1 50 Z" fill="#6BBF52"/>
+      <path d="M5 48 L7 60 L9 48 Z" fill="#6BBF52"/>
+    </g>
+    <!-- Foreground grass tuft, shorter variant. Width ±17. -->
+    <g id="tuftB">
+      <path d="M-17 140 Q-15 108 -12 80 L-9 140 Z" fill="#4E9E3E"/>
+      <path d="M-4 140 Q-2 100 1 74 L4 140 Z" fill="#3C8130"/>
+      <path d="M9 140 Q11 106 14 82 L17 140 Z" fill="#4E9E3E"/>
+      <path d="M-13 80 L-11 90 L-9 80 Z" fill="#6BBF52"/>
+      <path d="M-1 74 L1 84 L3 74 Z" fill="#6BBF52"/>
+    </g>
+  </defs>
+
+  <!-- Thin grass base strip along the very bottom (full-width, uniform => seamless). -->
+  <rect x="0" y="131" width="1280" height="9" fill="#3C8130"/>
+
+  <!-- Tufts on an 80px grid (centres 40 + 80k), alternating tuftA / tuftB. Pattern period = 2; 16 tufts =
+       8 full periods across 1280. Widths A=±22, B=±17 keep every adjacent gap = 80 - 22 - 17 = 41, and the
+       1280-seam composes the right half-gap (last tuft right edge x=1257 → 1280 = 23) plus the left
+       half-gap (x=0 → first tuft left edge 18 = 18): 23 + 18 = 41. => seamless L/R.
+       Region above the blade tips (~y48) is transparent. -->
+  <use href="#tuftA" transform="translate(40,0)"/>
+  <use href="#tuftB" transform="translate(120,0)"/>
+  <use href="#tuftA" transform="translate(200,0)"/>
+  <use href="#tuftB" transform="translate(280,0)"/>
+  <use href="#tuftA" transform="translate(360,0)"/>
+  <use href="#tuftB" transform="translate(440,0)"/>
+  <use href="#tuftA" transform="translate(520,0)"/>
+  <use href="#tuftB" transform="translate(600,0)"/>
+  <use href="#tuftA" transform="translate(680,0)"/>
+  <use href="#tuftB" transform="translate(760,0)"/>
+  <use href="#tuftA" transform="translate(840,0)"/>
+  <use href="#tuftB" transform="translate(920,0)"/>
+  <use href="#tuftA" transform="translate(1000,0)"/>
+  <use href="#tuftB" transform="translate(1080,0)"/>
+  <use href="#tuftA" transform="translate(1160,0)"/>
+  <use href="#tuftB" transform="translate(1240,0)"/>
 </svg>

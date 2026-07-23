@@ -1,5 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">
-  <rect x="1" y="1" width="138" height="138" rx="6" fill="#e6d3f2" stroke="#5b6670" stroke-width="2"/>
-  <text x="70" y="67.9" font-family="monospace" font-size="14" fill="#20272e" text-anchor="middle" dominant-baseline="middle">vfx_armor_burst</text>
-  <text x="70" y="84" font-family="monospace" font-size="10" fill="#48525c" text-anchor="middle" dominant-baseline="middle">140x140</text>
+  <defs>
+    <path id="br" d="M70 6 L76.2 46.8 L102 14.6 L87 53 L125.4 38 L93.2 63.8 L134 70 L93.2 76.2 L125.4 102 L87 87 L102 125.4 L76.2 93.2 L70 134 L63.8 93.2 L38 125.4 L53 87 L14.6 102 L46.8 76.2 L6 70 L46.8 63.8 L14.6 38 L53 53 L38 14.6 L63.8 46.8 Z"/>
+  </defs>
+  <!-- glow halo -->
+  <circle cx="70" cy="70" r="66" fill="#2FB4A0" opacity="0.16"/>
+  <circle cx="70" cy="70" r="50" fill="#6FD3C4" opacity="0.22"/>
+  <!-- teal burst -->
+  <use href="#br" fill="#2FB4A0" opacity="0.55"/>
+  <!-- white inner burst -->
+  <use href="#br" fill="#FFFFFF" transform="translate(70 70) scale(0.78) translate(-70 -70)"/>
+  <!-- core -->
+  <circle cx="70" cy="70" r="14" fill="#FDFBF4"/>
+  <circle cx="70" cy="70" r="14" fill="none" stroke="#2FB4A0" stroke-width="3"/>
+  <!-- sparkle dots -->
+  <g fill="#FFC93C">
+    <circle cx="70" cy="22" r="2.4"/>
+    <circle cx="118" cy="70" r="2.4"/>
+    <circle cx="70" cy="118" r="2.4"/>
+    <circle cx="22" cy="70" r="2.4"/>
+  </g>
 </svg>

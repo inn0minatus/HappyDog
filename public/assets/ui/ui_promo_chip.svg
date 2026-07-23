@@ -1,5 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="460" height="120" viewBox="0 0 460 120">
-  <rect x="1" y="1" width="458" height="118" rx="6" fill="#dfe3e8" stroke="#5b6670" stroke-width="2"/>
-  <text x="230" y="56.4" font-family="monospace" font-size="24" fill="#20272e" text-anchor="middle" dominant-baseline="middle">ui_promo_chip</text>
-  <text x="230" y="84" font-family="monospace" font-size="17" fill="#48525c" text-anchor="middle" dominant-baseline="middle">460x120</text>
+  <!-- Promo-code chip — cream pill with dashed border, soft offset shadow, top sheen, a price-tag motif (left) + paw motif (right). Center left open for the code overlay. No baked text. -->
+  <rect x="12" y="15" width="440" height="100" rx="50" fill="rgba(0,0,0,0.15)"/>
+  <rect x="10" y="10" width="440" height="100" rx="50" fill="#FFF6E6" stroke="#E6C88A" stroke-width="3" stroke-dasharray="10 7"/>
+  <rect x="30" y="16" width="400" height="10" rx="5" fill="#FFFFFF" opacity="0.4"/>
+  <g transform="rotate(-34 37 60)">
+    <path d="M24 52 L46 46 L50 66 L28 72 Z" fill="#FF7A59" stroke="#2E2A28" stroke-width="1.6"/>
+    <circle cx="31" cy="56" r="2.6" fill="#FFF6E6"/>
+  </g>
+  <g stroke="#2E2A28" stroke-width="1.3">
+    <ellipse cx="422" cy="68" rx="9" ry="6.5" fill="#2FB4A0"/>
+    <circle cx="412" cy="56" r="3.2" fill="#2FB4A0"/>
+    <circle cx="420" cy="52" r="3.2" fill="#2FB4A0"/>
+    <circle cx="428" cy="53" r="3.2" fill="#2FB4A0"/>
+    <circle cx="434" cy="57" r="3.2" fill="#2FB4A0"/>
+  </g>
 </svg>

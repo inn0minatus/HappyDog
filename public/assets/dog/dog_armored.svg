@@ -1,5 +1,89 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="150" height="160" viewBox="0 0 150 160">
-  <rect x="1" y="1" width="148" height="158" rx="6" fill="#cfd8e3" stroke="#5b6670" stroke-width="2"/>
-  <text x="75" y="77" font-family="monospace" font-size="20" fill="#20272e" text-anchor="middle" dominant-baseline="middle">dog_armored</text>
-  <text x="75" y="100" font-family="monospace" font-size="14" fill="#48525c" text-anchor="middle" dominant-baseline="middle">150x160</text>
+  <!-- shield bubble: translucent dome (behind dog), centered on canvas -->
+  <ellipse cx="75" cy="80" rx="70" ry="76" fill="#2FB4A0" fill-opacity="0.12"/>
+  <ellipse cx="75" cy="80" rx="66" ry="70" fill="#6FD3C4" fill-opacity="0.10"/>
+
+  <!-- Dog = identical to dog_run, translated +(5,10) so its bottom-center anchor
+       coincides with the run dog (feet at frame bottom, horizontally centered). -->
+  <g transform="translate(5,10)">
+    <defs>
+      <clipPath id="clip-body-arm">
+        <path d="M 38,74 C 36,60 50,55 66,57 C 77,58 81,50 88,45 C 95,40 106,41 112,47 C 116,51 120,57 125,63 C 128,66 128,70 124,72 C 119,74 113,75 107,75 C 101,75 99,79 95,82 C 91,86 89,91 86,95 C 84,101 83,107 80,112 C 66,116 49,115 39,110 C 31,105 29,99 29,91 C 29,83 32,77 38,74 Z"/>
+      </clipPath>
+    </defs>
+
+    <!-- tail (behind body) -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M 37,73 C 25,66 16,54 13,41" stroke="#2E2A28" stroke-width="12"/>
+      <path d="M 37,73 C 25,66 16,54 13,41" stroke="#F4B860" stroke-width="8"/>
+    </g>
+
+    <!-- far legs (behind body) -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M 80,100 C 80,118 82,132 84,140" stroke="#2E2A28" stroke-width="12"/>
+      <path d="M 80,100 C 80,118 82,132 84,140" stroke="#E09B3C" stroke-width="8"/>
+      <path d="M 46,102 C 50,118 52,132 54,138" stroke="#2E2A28" stroke-width="12"/>
+      <path d="M 46,102 C 50,118 52,132 54,138" stroke="#E09B3C" stroke-width="8"/>
+    </g>
+    <g>
+      <ellipse cx="84" cy="142" rx="6" ry="4" fill="#E09B3C" stroke="#2E2A28" stroke-width="2.5"/>
+      <ellipse cx="54" cy="140" rx="6" ry="4" fill="#E09B3C" stroke="#2E2A28" stroke-width="2.5"/>
+    </g>
+
+    <!-- body fill -->
+    <path d="M 38,74 C 36,60 50,55 66,57 C 77,58 81,50 88,45 C 95,40 106,41 112,47 C 116,51 120,57 125,63 C 128,66 128,70 124,72 C 119,74 113,75 107,75 C 101,75 99,79 95,82 C 91,86 89,91 86,95 C 84,101 83,107 80,112 C 66,116 49,115 39,110 C 31,105 29,99 29,91 C 29,83 32,77 38,74 Z" fill="#F4B860"/>
+
+    <!-- cream belly -->
+    <path d="M 44,98 C 58,104 74,105 84,104 C 82,112 78,116 70,117 C 56,118 42,114 38,108 C 38,104 40,100 44,98 Z" fill="#FBE8C6"/>
+
+    <!-- shadow (cel, clipped to body) -->
+    <g clip-path="url(#clip-body-arm)">
+      <path d="M 26,96 C 28,86 34,82 42,84 C 58,88 76,90 88,104 C 92,110 88,118 80,116 C 64,120 44,118 34,112 C 28,108 25,102 26,96 Z" fill="#E09B3C"/>
+    </g>
+
+    <!-- body outline -->
+    <path d="M 38,74 C 36,60 50,55 66,57 C 77,58 81,50 88,45 C 95,40 106,41 112,47 C 116,51 120,57 125,63 C 128,66 128,70 124,72 C 119,74 113,75 107,75 C 101,75 99,79 95,82 C 91,86 89,91 86,95 C 84,101 83,107 80,112 C 66,116 49,115 39,110 C 31,105 29,99 29,91 C 29,83 32,77 38,74 Z" fill="none" stroke="#2E2A28" stroke-width="3.5" stroke-linejoin="round"/>
+
+    <!-- near legs (front of body) -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M 40,100 C 34,118 28,134 24,144" stroke="#2E2A28" stroke-width="12"/>
+      <path d="M 40,100 C 34,118 28,134 24,144" stroke="#F4B860" stroke-width="8"/>
+      <path d="M 86,96 C 90,112 98,128 106,140" stroke="#2E2A28" stroke-width="12"/>
+      <path d="M 86,96 C 90,112 98,128 106,140" stroke="#F4B860" stroke-width="8"/>
+    </g>
+    <g>
+      <ellipse cx="24" cy="146" rx="6" ry="4" fill="#F4B860" stroke="#2E2A28" stroke-width="2.5"/>
+      <ellipse cx="106" cy="142" rx="6" ry="4" fill="#F4B860" stroke="#2E2A28" stroke-width="2.5"/>
+    </g>
+
+    <!-- ears (up) -->
+    <path d="M 114,47 C 112,39 114,32 118,30 C 122,36 122,43 120,49 C 118,49 116,48 114,47 Z" fill="#CC7E32" stroke="#2E2A28" stroke-width="3"/>
+    <path d="M 93,50 C 86,40 86,31 91,26 C 97,32 104,41 105,48 C 101,51 96,52 93,50 Z" fill="#E08A3A" stroke="#2E2A28" stroke-width="3"/>
+
+    <!-- collar + tag -->
+    <path d="M 78,83 C 86,80 94,80 100,83" fill="none" stroke="#2FB4A0" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="100" cy="88" r="4.5" fill="#FFD24A" stroke="#2E2A28" stroke-width="2"/>
+
+    <!-- face -->
+    <path d="M 121,69 C 119,75 115,78 111,77" fill="none" stroke="#2E2A28" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="113" cy="77" rx="3.5" ry="3" fill="#F27C7C" stroke="#2E2A28" stroke-width="1.5"/>
+    <path d="M 119,63 C 122,60 128,61 129,65 C 129,68 125,69 122,68 C 120,67 118,65 119,63 Z" fill="#2E2A28"/>
+    <path d="M 101,57 C 103,54 107,54 109,57 C 107,59 103,59 101,57 Z" fill="#2E2A28"/>
+    <circle cx="107" cy="56" r="1.1" fill="#FBE8C6"/>
+    <circle cx="127" cy="64" r="0.9" fill="#FBE8C6"/>
+
+    <!-- ARMOR PLATING (light teal #6FD3C4/#8FDCCD with #2FB4A0 outline), distinct overlay -->
+    <path d="M 50,70 C 62,62 80,60 96,66 C 98,70 96,74 92,74 C 78,70 62,72 52,78 C 49,76 48,72 50,70 Z" fill="#6FD3C4" stroke="#2FB4A0" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M 84,78 C 92,76 100,80 100,88 C 100,94 92,96 86,92 C 82,88 81,82 84,78 Z" fill="#8FDCCD" stroke="#2FB4A0" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M 96,44 C 102,40 112,42 114,48 C 110,50 104,50 99,49 C 97,47 96,45 96,44 Z" fill="#6FD3C4" stroke="#2FB4A0" stroke-width="2.4" stroke-linejoin="round"/>
+    <circle cx="60" cy="72" r="1.6" fill="#2FB4A0"/>
+    <circle cx="90" cy="85" r="1.6" fill="#2FB4A0"/>
+    <circle cx="106" cy="46" r="1.4" fill="#2FB4A0"/>
+  </g>
+
+  <!-- shield bubble: front dome outline + specular highlight + energy sparkles -->
+  <ellipse cx="75" cy="80" rx="70" ry="76" fill="none" stroke="#6FD3C4" stroke-width="3.2" opacity="0.9"/>
+  <path d="M 35,46 C 45,28 62,18 82,18" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+  <circle cx="18" cy="64" r="2.2" fill="#FFFFFF" opacity="0.7"/>
+  <circle cx="130" cy="58" r="2" fill="#FFFFFF" opacity="0.7"/>
 </svg>

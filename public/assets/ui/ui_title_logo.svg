@@ -1,5 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="260" viewBox="0 0 720 260">
-  <rect x="1" y="1" width="718" height="258" rx="6" fill="#dfe3e8" stroke="#5b6670" stroke-width="2"/>
-  <text x="360" y="126.1" font-family="monospace" font-size="26" fill="#20272e" text-anchor="middle" dominant-baseline="middle">ui_title_logo</text>
-  <text x="360" y="156" font-family="monospace" font-size="19" fill="#48525c" text-anchor="middle" dominant-baseline="middle">720x260</text>
+  <!-- Menu title/logo placeholder — friendly emblem (dog face + flea/tick tablet capsule) on a teal badge + an abstract two-tone wordmark shape (rounded nameplate bars + tagline bar). Re-themeable. No baked text / no legible glyphs. -->
+  <!-- ── Emblem ── -->
+  <circle cx="165" cy="130" r="100" fill="#2FB4A0" stroke="#2E2A28" stroke-width="2.5"/>
+  <path d="M124 90 C108 80 96 98 104 120 C116 110 128 104 138 100 Z" fill="#FF7A59" stroke="#2E2A28" stroke-width="2"/>
+  <path d="M206 90 C222 80 234 98 226 120 C214 110 202 104 192 100 Z" fill="#FF7A59" stroke="#2E2A28" stroke-width="2"/>
+  <circle cx="165" cy="122" r="56" fill="#FFF6E6" stroke="#2E2A28" stroke-width="2.2"/>
+  <circle cx="147" cy="118" r="5.5" fill="#2E2A28"/>
+  <circle cx="183" cy="118" r="5.5" fill="#2E2A28"/>
+  <ellipse cx="165" cy="138" rx="7" ry="5" fill="#2E2A28"/>
+  <path d="M150 150 Q165 164 180 150" fill="none" stroke="#2E2A28" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="130" cy="150" r="6" fill="#FF7A59" opacity="0.45"/>
+  <circle cx="200" cy="150" r="6" fill="#FF7A59" opacity="0.45"/>
+  <!-- tablet (product) capsule, two-tone -->
+  <path d="M149 186 H165 V206 H149 A10 10 0 0 0 149 186 Z" fill="#2FB4A0"/>
+  <path d="M165 186 H181 A10 10 0 0 1 181 206 H165 Z" fill="#FF7A59"/>
+  <line x1="165" y1="186" x2="165" y2="206" stroke="#2E2A28" stroke-width="1.5"/>
+  <rect x="139" y="186" width="52" height="20" rx="10" fill="none" stroke="#2E2A28" stroke-width="2"/>
+  <!-- sparkle accent -->
+  <path d="M238 64 L241 73 L250 76 L241 79 L238 88 L235 79 L226 76 L235 73 Z" fill="#FFC93C"/>
+  <!-- ── Abstract wordmark shape ── -->
+  <rect x="298" y="104" width="372" height="58" rx="29" fill="#2FB4A0" stroke="#2E2A28" stroke-width="2.5"/>
+  <rect x="320" y="127" width="150" height="11" rx="5.5" fill="#FFFFFF" opacity="0.92"/>
+  <rect x="482" y="127" width="70" height="11" rx="5.5" fill="#FFFFFF" opacity="0.92"/>
+  <rect x="564" y="127" width="88" height="11" rx="5.5" fill="#FFFFFF" opacity="0.92"/>
+  <rect x="336" y="178" width="210" height="18" rx="9" fill="#FF7A59" stroke="#2E2A28" stroke-width="2"/>
+  <circle cx="692" cy="133" r="8" fill="#FFC93C" stroke="#2E2A28" stroke-width="1.5"/>
 </svg>
