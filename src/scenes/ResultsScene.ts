@@ -74,12 +74,14 @@ export class ResultsScene extends Phaser.Scene {
       },
     });
 
-    // Tertiary: back to the menu — closes the Boot→…→Results→Menu loop.
+    // Tertiary: back to the menu — closes the Boot→…→Results→Menu loop. The
+    // vertical padding grows the tap target to ~48px tall for touch a11y (§10.4).
     this.add
       .text(90, 44, `← ${t('results_menu')}`, {
         fontFamily: 'system-ui, sans-serif',
         fontSize: '22px',
         color: '#20272e',
+        padding: { y: 12 },
       })
       .setOrigin(0, 0.5)
       .setInteractive({ useHandCursor: true })

@@ -38,12 +38,13 @@
       ────────────────────────────────────────────────────────────────────────
       ANALYTICS SNIPPET PLACEHOLDERS (GA4 + Meta Pixel)
       ────────────────────────────────────────────────────────────────────────
-      These are intentionally left as COMMENTED placeholders. We do NOT hardcode
-      live measurement IDs in the HTML. Instead, `src/analytics/track.ts`
+      These are intentionally left as COMMENTED placeholders — this is the ONLY
+      analytics path (no active snippet here, so nothing double-loads). We do NOT
+      hardcode live measurement IDs in the HTML. Instead, `src/analytics/track.ts`
       → initAnalytics() injects the gtag / fbq loaders at runtime, gated on the
-      VITE_GA4_ID / VITE_FB_PIXEL_ID env vars and a consent hook. When those IDs
-      are absent (dev, previews, blocked pixels) nothing loads and track() is a
-      safe no-op. Real GA4/Pixel wiring is finished in Phase 5.
+      VITE_GA4_ID / VITE_FB_PIXEL_ID env vars (empty OR placeholder → skipped) and
+      a consent hook. When no real ID is present (dev, previews, blocked pixels)
+      nothing loads and track() is a safe no-op.
 
       Standard GA4 install (for reference — injected by initAnalytics):
         <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>

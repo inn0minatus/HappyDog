@@ -39,12 +39,15 @@ export function buyDestination(): string {
 }
 
 /**
- * Build the UTM-tagged buy URL the CTA navigates to (spec §6.4). UTMs are
- * carried ALONGSIDE the promo code (which the player reads off the chip).
+ * Build the buy URL the CTA navigates to (spec §6.4). Carries BOTH the promo
+ * code (as `promo=`) so it survives even if the player never copies the chip,
+ * AND the UTM campaign params for attribution. The URL API guarantees a single
+ * `?`, proper `&` separators, and value encoding.
  */
 export function buildBuyUrl(): string {
   try {
     const url = new URL(ENV.buyUrl);
+    if (ENV.promoCode) url.searchParams.set('promo', ENV.promoCode);
     if (ENV.utmSource) url.searchParams.set('utm_source', ENV.utmSource);
     if (ENV.utmMedium) url.searchParams.set('utm_medium', ENV.utmMedium);
     if (ENV.utmCampaign) url.searchParams.set('utm_campaign', ENV.utmCampaign);

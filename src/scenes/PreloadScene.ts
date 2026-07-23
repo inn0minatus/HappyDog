@@ -27,8 +27,13 @@ export class PreloadScene extends Phaser.Scene {
     });
 
     // The manifest is the single source of truth: iterate & load each SVG.
+    // Manifest paths are base-relative (`assets/<group>/<key>.svg`); Vite does NOT
+    // rewrite these runtime strings, so prefix `import.meta.env.BASE_URL` (=
+    // `/HappyDog/` in prod, `/` in dev) so every SVG resolves under the deploy
+    // sub-path instead of 404-ing at the domain root.
+    const base = import.meta.env.BASE_URL;
     for (const a of ASSET_MANIFEST) {
-      this.load.svg(a.key, a.path, { width: a.width, height: a.height });
+      this.load.svg(a.key, `${base}${a.path}`, { width: a.width, height: a.height });
     }
 
     // Placeholder SFX/music: synthesized to WAV blobs at runtime and queued onto

@@ -1,14 +1,16 @@
 import { defineConfig } from 'vite';
 
-// Static-site build (no backend). `base: './'` keeps every asset/script URL
-// relative so the built `dist/` works when served from a domain root OR a
-// sub-path (Cloudflare Pages / Netlify / a nested folder) without edits.
+// Static-site build (no backend). The demo ships to a GitHub Pages PROJECT page
+// served under the `/HappyDog/` sub-path, so `base` is that ABSOLUTE prefix:
+// Vite rewrites every asset/script URL it processes (index.html, JS imports) to
+// `/HappyDog/…`, and `import.meta.env.BASE_URL` resolves to `/HappyDog/` for the
+// RUNTIME string URLs Phaser builds (see PreloadScene + assetManifest).
 //
 // Assets live in `public/assets/**` and are copied verbatim into `dist/assets/**`
-// (Phaser loads them at runtime via `this.load.svg(key, 'assets/...')`), so we do
-// NOT want Vite to inline or hash them — `publicDir` files are always emitted as-is.
+// (Phaser loads them at runtime via `this.load.svg(key, `${BASE_URL}assets/...`)`),
+// so we do NOT want Vite to inline or hash them — `publicDir` files are emitted as-is.
 export default defineConfig({
-  base: './',
+  base: '/HappyDog/',
   build: {
     target: 'es2020',
     outDir: 'dist',

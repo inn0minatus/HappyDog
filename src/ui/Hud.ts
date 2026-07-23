@@ -5,6 +5,7 @@ import { t } from '../i18n/strings';
 import { GameEvents, type ArmorState } from '../scenes/gameEvents';
 import { AudioManager } from '../systems/AudioManager';
 import { playSfx, Sfx } from '../systems/audio';
+import { prefersReducedMotion } from '../systems/a11y';
 
 export interface HudOptions {
   /** Invoked when the pause button is tapped. */
@@ -207,7 +208,9 @@ export class Hud {
 
   private startArmorTell(): void {
     this.armorIcon.setVisible(true).setScale(HUD.armorTellScale);
-    if (this.armorTween) return;
+    // The icon's visibility already conveys "armored"; the pulse is decorative,
+    // so honor prefers-reduced-motion by leaving it static (§10.4).
+    if (this.armorTween || prefersReducedMotion()) return;
     this.armorTween = this.scene.tweens.add({
       targets: this.armorIcon,
       scale: { from: HUD.armorTellScale, to: HUD.armorTellPulseScale },

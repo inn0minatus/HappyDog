@@ -315,23 +315,47 @@ const AUDIO_DEFS: readonly AudioDef[] = [
   { key: Music.game, sr: MUSIC_SR, make: makeGameMusic },
 ];
 
-// Generate the blob URLs once (idempotent across scene reloads).
-let urlCache: Map<string, string> | undefined;
-function audioUrls(): Map<string, string> {
-  if (!urlCache) {
-    urlCache = new Map();
-    for (const def of AUDIO_DEFS) urlCache.set(def.key, wavUrl(def.make(), def.sr));
+// Object URLs for the synthesized WAV blobs. Created lazily as each sound is
+// queued onto the loader and revoked once Phaser has decoded them, so they don't
+// leak for the page's lifetime.
+const blobUrls = new Map<string, string>();
+
+function audioUrl(def: AudioDef): string {
+  let url = blobUrls.get(def.key);
+  if (!url) {
+    url = wavUrl(def.make(), def.sr);
+    blobUrls.set(def.key, url);
   }
-  return urlCache;
+  return url;
 }
 
 /** Queue every placeholder sound onto the scene's loader (call from PreloadScene). */
 export function registerAudio(scene: Phaser.Scene): void {
-  const urls = audioUrls();
+  let queued = 0;
   for (const def of AUDIO_DEFS) {
-    const url = urls.get(def.key);
-    if (url && !scene.cache.audio.exists(def.key)) scene.load.audio(def.key, url);
+    if (scene.cache.audio.exists(def.key)) continue; // already loaded — idempotent
+    scene.load.audio(def.key, audioUrl(def));
+    queued++;
   }
+  if (queued === 0) return;
+
+  // Free the object URLs once loading finishes. Under Web Audio (the default),
+  // Phaser decodes each WAV from an in-memory ArrayBuffer BEFORE the file is
+  // marked complete (AudioFile.onProcess resolves decodeAudioData first), and the
+  // blob URL was only ever the XHR source — so revoking on COMPLETE cannot break
+  // playback. Under the HTML5 Audio fallback the <audio> elements keep pointing at
+  // the URL, so we leave those alive (bounded, session-lived — not a growing leak).
+  scene.load.once(Phaser.Loader.Events.COMPLETE, () => {
+    if (scene.sound instanceof Phaser.Sound.WebAudioSoundManager) {
+      revokeAudioUrls();
+    }
+  });
+}
+
+/** Revoke every synthesized-WAV object URL. Safe once Web Audio has decoded them. */
+export function revokeAudioUrls(): void {
+  for (const url of blobUrls.values()) URL.revokeObjectURL(url);
+  blobUrls.clear();
 }
 
 // ── Playback (mute is enforced globally by the shared sound manager) ──────────
