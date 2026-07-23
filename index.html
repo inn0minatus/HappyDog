@@ -9,6 +9,13 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
     <meta name="theme-color" content="#0f1418" />
+    <!-- `color-scheme: dark` (here + the matching <style> rule below) tells the
+         browser the page manages its own dark colors, so Chromium / Samsung
+         Internet "Auto Dark Theme" (its "Dark mode" / "Darken websites") SKIPS this
+         page instead of force-inverting it. This does NOT affect OS-level Android
+         Accessibility "Color inversion" / "High contrast" — those are device
+         settings no website can override. No game/UI colors are changed by this. -->
+    <meta name="color-scheme" content="dark" />
     <meta name="description" content="Happy Dog Runner — dodge the ticks, grab the tablets!" />
     <title>Happy Dog Runner</title>
 
@@ -20,6 +27,9 @@
         height: 100%;
         overflow: hidden;
         background: #0f1418;
+        /* Matches the <meta name="color-scheme"> above: opts this page out of
+           Chromium/Samsung Auto Dark Theme (we manage our own dark colors). */
+        color-scheme: dark;
       }
       /* Full-viewport mount; Phaser's Scale.FIT letterboxes the 1280×720 canvas. */
       #game {
@@ -64,7 +74,7 @@
         </script>
       ────────────────────────────────────────────────────────────────────────
     -->
-    <script type="module" crossorigin src="/HappyDog/assets/index-kgdRlfV6.js"></script>
+    <script type="module" crossorigin src="/HappyDog/assets/index-BHsKnwRc.js"></script>
   </head>
   <body>
     <!-- Phaser mounts its <canvas> into this element (see src/main.ts `parent`). -->
